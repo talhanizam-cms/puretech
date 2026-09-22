@@ -22,6 +22,7 @@ interface TeamMember {
   domain: string;
   skills: string[];
   image: string;
+  imagePosition?: string;
   accentColor: string;
   bio: string;
   socials: {
@@ -40,7 +41,8 @@ const TEAM_MEMBERS: TeamMember[] = [
     pedigree: 'Ex-OpenAI Fellow · Stanford AI Lab',
     domain: 'Generative Intelligence & Transformer Runtimes',
     skills: ['Local LLMs', 'Quantization', 'Agent Swarms', 'PyTorch'],
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+    image: '/images/team/elena.jpg',
+    imagePosition: 'center 22%',
     accentColor: '#22d3ee', // Cyan
     bio: 'Pioneers high-throughput edge agent orchestration and private enterprise neural models with sub-10ms response latencies.',
     socials: {
@@ -57,7 +59,8 @@ const TEAM_MEMBERS: TeamMember[] = [
     pedigree: 'Ex-Google Cloud Infra · 14+ Yrs Architecture',
     domain: 'Event-Driven Microservices & Cloud Scale',
     skills: ['Kafka', 'Kubernetes', 'Zero-Trust Mesh', 'Go/Rust'],
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
+    image: '/images/team/marcus.jpg',
+    imagePosition: 'center 35%',
     accentColor: '#818cf8', // Indigo
     bio: 'Architect of mission-critical streaming backbones processing 200,000+ operations/sec for global logistics and fintech conglomerates.',
     socials: {
@@ -73,7 +76,8 @@ const TEAM_MEMBERS: TeamMember[] = [
     pedigree: 'Awwwards Judge · Tokyo Digital Arts Guild',
     domain: 'Spatial Interfaces, WebGL & Kinetic UI',
     skills: ['Three.js', 'Custom GLSL Shaders', 'WebGPU', 'Motion UX'],
-    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+    image: '/images/team/sora.jpg',
+    imagePosition: 'center 35%',
     accentColor: '#f43f5e', // Rose
     bio: 'Fuses tactile graphic design with 60 FPS GPU-accelerated web experiences, giving digital products the physical soul of a luxury timepiece.',
     socials: {
@@ -90,7 +94,8 @@ const TEAM_MEMBERS: TeamMember[] = [
     pedigree: 'MIT CS Doctorate · Alpharetta Pods Director',
     domain: 'Follow-the-Sun Pod Governance & QA Auditing',
     skills: ['CI/CD Orchestration', 'Automated QA', 'k6 Stress', 'DevSecOps'],
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
+    image: '/images/team/aris.jpg',
+    imagePosition: 'center 38%',
     accentColor: '#10b981', // Emerald
     bio: 'Steers PureTech’s distributed 24/7 delivery velocity. Ensures zero-regression code quality from prototype to global multi-region deployments.',
     socials: {
@@ -106,7 +111,8 @@ const TEAM_MEMBERS: TeamMember[] = [
     pedigree: 'Ex-IDEO Design Lead · Stanford d.school',
     domain: 'Cognitive Architecture & Enterprise Systems',
     skills: ['User Research', 'Design Systems', 'Figma Prototyping', 'Accessibility'],
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80',
+    image: '/images/team/maya.jpg',
+    imagePosition: 'center 48%',
     accentColor: '#fbbf24', // Amber
     bio: 'Translates volatile corporate software workflows into elegant, intuitive customer journeys that consistently yield +40% conversion uplifts.',
     socials: {
@@ -122,7 +128,8 @@ const TEAM_MEMBERS: TeamMember[] = [
     pedigree: 'DEF CON Speaker · Certified Kubernetes Lead',
     domain: 'Zero-Day Hardening & Multi-Cloud Resilience',
     skills: ['Penetration Testing', 'Chaos Engineering', 'AWS/GCP', 'eBPF'],
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80',
+    image: '/images/team/devon.jpg',
+    imagePosition: 'center 22%',
     accentColor: '#c084fc', // Purple
     bio: 'Guards PureTech client IP with defense-in-depth protocols, real-time threat telemetry, and automated self-healing cloud clusters.',
     socials: {
@@ -296,11 +303,12 @@ export const TeamSection: React.FC = () => {
                   </div>
 
                   {/* Member Editorial Portrait (Vibrant & High Visibility with Sleek Height) */}
-                  <div className="relative z-10 w-full aspect-[16/11] rounded-2xl overflow-hidden bg-slate-900 border border-white/15 mb-3 group-hover:border-cyan-400/40 transition-all duration-500">
+                  <div className="relative z-10 w-full h-56 sm:h-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/15 mb-3 group-hover:border-cyan-400/40 transition-all duration-500">
                     <img 
                       src={member.image} 
                       alt={member.name}
-                      className="w-full h-full object-cover object-top brightness-105 contrast-105 group-hover:scale-105 transition-all duration-700 ease-out" 
+                      style={{ objectPosition: member.imagePosition || 'center 25%' }}
+                      className="w-full h-full object-cover brightness-105 contrast-105 group-hover:scale-105 transition-all duration-700 ease-out" 
                     />
 
                     {/* Subtle Gradient Vignette at Bottom */}

@@ -76,16 +76,24 @@ const CleanVideoShowcase: React.FC<{
         {project.videoUrl ? (
           <video
             ref={(el) => {
-              if (el) el.playbackRate = 0.8;
+              if (el) {
+                el.defaultMuted = true;
+                el.muted = true;
+                el.playbackRate = 0.8;
+              }
             }}
             onLoadedMetadata={(e) => {
-              e.currentTarget.playbackRate = 0.8;
+              const v = e.currentTarget;
+              v.defaultMuted = true;
+              v.muted = true;
+              v.playbackRate = 0.8;
+              v.play().catch(() => {});
             }}
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             poster={project.heroImage}
             className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02] transition-transform duration-700 group-hover:scale-105"
           >
@@ -216,6 +224,8 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                   <video
                     ref={(el) => {
                       if (el) {
+                        el.defaultMuted = true;
+                        el.muted = true;
                         el.playbackRate = 0.8;
                         if (isActive) {
                           el.play().catch(() => {});
@@ -224,12 +234,18 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                         }
                       }
                     }}
+                    onLoadedMetadata={(e) => {
+                      const v = e.currentTarget;
+                      v.defaultMuted = true;
+                      v.muted = true;
+                      if (isActive) v.play().catch(() => {});
+                    }}
                     src={p.videoUrl}
                     autoPlay={isActive}
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                     poster={p.heroImage}
                     className="w-full h-full object-cover filter contrast-[1.05] brightness-[0.68] saturate-[1.1]"
                   />
@@ -632,14 +648,24 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
                   {project.videoUrl ? (
                     <video
+                      ref={(el) => {
+                        if (el) {
+                          el.defaultMuted = true;
+                          el.muted = true;
+                        }
+                      }}
                       onLoadedMetadata={(e) => {
-                        e.currentTarget.playbackRate = 0.8;
+                        const v = e.currentTarget;
+                        v.defaultMuted = true;
+                        v.muted = true;
+                        v.playbackRate = 0.8;
+                        v.play().catch(() => {});
                       }}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      preload="auto"
+                      preload="metadata"
                       poster={project.heroImage}
                       className="absolute inset-0 w-full h-full object-cover filter brightness-95 group-hover:brightness-110 transition-transform duration-700 group-hover:scale-105"
                     >

@@ -155,13 +155,23 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
               >
                 <video
                   ref={(el) => {
-                    if (el) el.playbackRate = 0.8;
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                      el.playbackRate = 0.8;
+                    }
+                  }}
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    v.defaultMuted = true;
+                    v.muted = true;
+                    v.play().catch(() => {});
                   }}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.75] saturate-[1.1]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -190,13 +200,23 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
               >
                 <video
                   ref={(el) => {
-                    if (el) el.playbackRate = 0.85;
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                      el.playbackRate = 0.85;
+                    }
+                  }}
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    v.defaultMuted = true;
+                    v.muted = true;
+                    v.play().catch(() => {});
                   }}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.85] saturate-[1.2]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -221,13 +241,23 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
               >
                 <video
                   ref={(el) => {
-                    if (el) el.playbackRate = 0.8;
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                      el.playbackRate = 0.8;
+                    }
+                  }}
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    v.defaultMuted = true;
+                    v.muted = true;
+                    v.play().catch(() => {});
                   }}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.7] saturate-[1.15]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -252,13 +282,23 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
               >
                 <video
                   ref={(el) => {
-                    if (el) el.playbackRate = 0.8;
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                      el.playbackRate = 0.8;
+                    }
+                  }}
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    v.defaultMuted = true;
+                    v.muted = true;
+                    v.play().catch(() => {});
                   }}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.7] saturate-[1.15]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />

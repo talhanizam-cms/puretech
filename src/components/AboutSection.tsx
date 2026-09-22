@@ -106,11 +106,23 @@ export const AboutSection: React.FC = () => {
               {/* Video Showcase inside Device */}
               <div className="relative aspect-[16/11] sm:aspect-[4/3] overflow-hidden">
                 <video
+                  ref={(el) => {
+                    if (el) {
+                      el.defaultMuted = true;
+                      el.muted = true;
+                    }
+                  }}
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    v.defaultMuted = true;
+                    v.muted = true;
+                    v.play().catch(() => {});
+                  }}
                   autoPlay
                   loop
                   muted
                   playsInline
-                  preload="auto"
+                  preload="metadata"
                   className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.12]"
                 >
                   <source src="/videos/fantasy-software-build.mp4" type="video/mp4" />

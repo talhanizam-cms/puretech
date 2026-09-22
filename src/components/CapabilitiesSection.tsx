@@ -108,6 +108,8 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
               <video
                 ref={(el) => {
                   if (el) {
+                    el.defaultMuted = true;
+                    el.muted = true;
                     el.playbackRate = 0.8;
                     if (isActive) {
                       el.play().catch(() => {});
@@ -116,12 +118,18 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                     }
                   }
                 }}
+                onLoadedMetadata={(e) => {
+                  const v = e.currentTarget;
+                  v.defaultMuted = true;
+                  v.muted = true;
+                  if (isActive) v.play().catch(() => {});
+                }}
                 src={vidSrc}
                 autoPlay={isActive}
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="w-full h-full object-cover filter contrast-[1.05] brightness-[0.68] saturate-[1.1]"
               />
             </div>

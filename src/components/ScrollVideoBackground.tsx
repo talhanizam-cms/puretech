@@ -164,16 +164,26 @@ export const ScrollVideoBackground: React.FC = () => {
               <video
                 ref={(el) => {
                   videoRefs.current[scene.id] = el;
-                  if (el) el.playbackRate = 0.75;
+                  if (el) {
+                    el.defaultMuted = true;
+                    el.muted = true;
+                    el.playbackRate = 0.75;
+                  }
                 }}
                 onLoadedMetadata={(e) => {
-                  e.currentTarget.playbackRate = 0.75;
+                  const target = e.currentTarget;
+                  target.defaultMuted = true;
+                  target.muted = true;
+                  target.playbackRate = 0.75;
+                  if (isVideoPlaying && isActive) {
+                    target.play().catch(() => {});
+                  }
                 }}
                 autoPlay
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 poster={scene.poster}
                 className="w-full h-full object-cover filter contrast-[1.06] brightness-[0.98] saturate-[1.12]"
               >

@@ -104,11 +104,23 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onStartDiscovery
           {/* Ambient Video Glow */}
           <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
             <video
+              ref={(el) => {
+                if (el) {
+                  el.defaultMuted = true;
+                  el.muted = true;
+                }
+              }}
+              onLoadedMetadata={(e) => {
+                const v = e.currentTarget;
+                v.defaultMuted = true;
+                v.muted = true;
+                v.play().catch(() => {});
+              }}
               autoPlay
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               className="w-full h-full object-cover opacity-15 filter contrast-125"
             >
               <source src="/videos/capabilities-bg.mp4" type="video/mp4" />

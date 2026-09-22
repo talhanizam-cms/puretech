@@ -31,11 +31,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
       {/* Ambient Looping Contact Background Video */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
         <video
+          ref={(el) => {
+            if (el) {
+              el.defaultMuted = true;
+              el.muted = true;
+            }
+          }}
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget;
+            v.defaultMuted = true;
+            v.muted = true;
+            v.play().catch(() => {});
+          }}
           autoPlay
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className="w-full h-full object-cover opacity-25 filter contrast-125 brightness-80 saturate-120"
         >
           <source src="/videos/contact-bg.mp4" type="video/mp4" />
