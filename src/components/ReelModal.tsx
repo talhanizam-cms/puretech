@@ -149,7 +149,7 @@ export const ReelModal: React.FC<ReelModalProps> = ({ isOpen, onClose }) => {
             playsInline
             controls
             className="w-full h-full object-cover"
-            poster="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80"
+            poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80"
           >
             <source src={currentChapter.videoUrl} type="video/mp4" />
           </video>

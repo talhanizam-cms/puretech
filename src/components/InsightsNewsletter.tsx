@@ -41,15 +41,17 @@ export const InsightsNewsletter: React.FC = () => {
           className="max-w-4xl mx-auto text-center space-y-8"
         >
           {/* Eyebrow */}
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono-tech uppercase tracking-[0.2em] text-cyan-400">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span>PURETECH PERSPECTIVES & TECH RADAR</span>
+          <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-1">
+            <span className="text-slate-200 font-medium">PURETECH PERSPECTIVES // TECH RADAR</span>
           </motion.div>
 
           {/* Heading & Subtitle */}
           <div className="space-y-4">
             <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl lg:text-7xl font-display font-black text-white tracking-tighter leading-none">
-              Join our insights.
+              Join our{' '}
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                Insights.
+              </span>
             </motion.h2>
             <motion.p variants={fadeInUp} className="text-base sm:text-lg lg:text-xl text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
               Quarterly architectural debriefs, generative AI benchmarks, and engineering blueprints delivered directly to 24,000+ technology leaders.

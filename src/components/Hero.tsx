@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenReel
 }) => {
   return (
-    <section className="relative min-h-[96vh] sm:min-h-screen pt-28 sm:pt-36 pb-16 flex flex-col justify-between overflow-hidden">
+    <section className="relative min-h-[96vh] sm:min-h-screen pt-28 sm:pt-36 pb-16 flex flex-col justify-between overflow-hidden w-full max-w-full">
       {/* Interactive Three.js WebGL kinetic element in background */}
       <HeroWebGL />
 
@@ -53,16 +53,9 @@ export const Hero: React.FC<HeroProps> = ({
             {/* Minimalist Positioning Eyebrow */}
             <motion.div
               variants={fadeInUp}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.12] backdrop-blur-xl mb-5 sm:mb-6 w-fit shadow-lg shadow-black/40"
+              className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-5 sm:mb-6 w-fit"
             >
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span className="text-[10px] sm:text-xs font-mono-tech tracking-wider text-slate-200 uppercase font-semibold">
-                AI-NATIVE DIGITAL PRODUCT ATELIER
-              </span>
-              <span className="text-slate-600">·</span>
-              <span className="text-[10px] sm:text-xs font-mono-tech text-cyan-400 font-bold uppercase">
-                PURETECH 2026
-              </span>
+              <span className="text-slate-200 font-medium">AI-NATIVE DIGITAL PRODUCT ATELIER // 2026</span>
             </motion.div>
 
             {/* Short, Iconic Display Headline (Low Word Count, Sleek Size) */}
@@ -71,7 +64,7 @@ export const Hero: React.FC<HeroProps> = ({
               className="text-3xl sm:text-5xl lg:text-[3.5rem] font-display font-black tracking-[-0.035em] text-white leading-[1.08] mb-5"
             >
               We build what’s next in{' '}
-              <span className="bg-gradient-to-r from-white via-cyan-100 to-slate-300 bg-clip-text text-transparent">
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
                 digital products.
               </span>
             </motion.h1>
@@ -86,13 +79,13 @@ export const Hero: React.FC<HeroProps> = ({
             {/* Action Buttons */}
             <motion.div
               variants={staggerContainer}
-              className="flex flex-wrap items-center gap-4 mb-12"
+              className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-8 sm:mb-12 w-full sm:w-auto"
             >
               <motion.button
                 variants={fadeInScale}
                 id="hero-watch-reel-btn"
                 onClick={onOpenReel}
-                className="px-8 py-4.5 rounded-full bg-white hover:bg-slate-200 text-slate-950 font-display font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2.5 shadow-[0_20px_50px_rgba(255,255,255,0.25)] cursor-pointer active:scale-95"
+                className="w-full sm:w-auto px-7 sm:px-8 py-3.5 sm:py-4.5 rounded-full bg-white hover:bg-slate-200 text-slate-950 font-display font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2.5 shadow-[0_20px_50px_rgba(255,255,255,0.25)] cursor-pointer active:scale-95"
               >
                 <Play className="w-4 h-4 fill-current text-slate-950" />
                 <span>Watch Showreel</span>
@@ -102,7 +95,7 @@ export const Hero: React.FC<HeroProps> = ({
                 variants={fadeInScale}
                 id="hero-explore-work-btn"
                 onClick={onExploreWork}
-                className="px-7 py-4.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-display font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 border border-white/[0.16] flex items-center justify-center gap-2 backdrop-blur-xl cursor-pointer active:scale-95"
+                className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-4.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-white font-display font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 border border-white/[0.16] flex items-center justify-center gap-2 backdrop-blur-xl cursor-pointer active:scale-95"
               >
                 <span>Explore Work</span>
                 <ArrowDown className="w-4 h-4 text-cyan-400" />
@@ -112,7 +105,7 @@ export const Hero: React.FC<HeroProps> = ({
                 variants={fadeInScale}
                 id="hero-estimator-btn"
                 onClick={onOpenEstimator}
-                className="px-7 py-4.5 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 font-display font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 border border-cyan-500/30 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-4.5 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 font-display font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 border border-cyan-500/30 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
               >
                 <Sparkles className="w-4 h-4 text-cyan-400" />
                 <span>Estimate Project</span>

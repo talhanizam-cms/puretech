@@ -11,7 +11,7 @@ import { WorkSection } from './components/WorkSection';
 import { CaseStudyModal } from './components/CaseStudyModal';
 import { ReelModal } from './components/ReelModal';
 import { CapabilitiesSection } from './components/CapabilitiesSection';
-import { ProcessSection } from './components/ProcessSection';
+import { FoundationalPillarsSection } from './components/FoundationalPillarsSection';
 import { WhatIfSection } from './components/WhatIfSection';
 import { ProjectEstimator } from './components/ProjectEstimator';
 import { AboutSection } from './components/AboutSection';
@@ -108,6 +108,9 @@ export default function App() {
             handleOpenContactWithSubject(`Project Blueprint Estimate: ${summary}`)
           }
         />
+
+        {/* Foundational Pillars (Nextnox Scrollytelling Methodology) */}
+        <FoundationalPillarsSection />
 
         <AboutSection />
 

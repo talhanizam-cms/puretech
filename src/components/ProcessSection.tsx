@@ -46,12 +46,15 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onStartDiscovery
           }}
           className="max-w-3xl mb-12 sm:mb-16"
         >
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.2em] text-cyan-400 mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            METHODOLOGY & EXECUTION · HOME 2.0
+          <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-3">
+            <span className="text-slate-200 font-medium">METHODOLOGY &amp; EXECUTION // PROCESS</span>
           </motion.div>
           <motion.h2 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-tight mb-4">
-            Our structured 5-step development journey.
+            Our structured{' '}
+            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+              5-Step Development
+            </span>{' '}
+            journey.
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
             From initial consultation to post-launch optimization, our systematic process ensures complete transparency, architectural rigor, and reliable delivery.
@@ -102,7 +105,10 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onStartDiscovery
         {/* Active Step Feature Stage */}
         <div className="bg-[#0e1018]/95 border border-white/10 rounded-3xl p-6 sm:p-12 relative overflow-hidden shadow-2xl backdrop-blur-xl">
           {/* Ambient Video Glow */}
-          <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+          <div 
+            className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-cover bg-center"
+            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1600&q=80)' }}
+          >
             <video
               ref={(el) => {
                 if (el) {
@@ -121,6 +127,7 @@ export const ProcessSection: React.FC<ProcessSectionProps> = ({ onStartDiscovery
               muted
               playsInline
               preload="metadata"
+              poster="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1600&q=80"
               className="w-full h-full object-cover opacity-15 filter contrast-125"
             >
               <source src="/videos/capabilities-bg.mp4" type="video/mp4" />

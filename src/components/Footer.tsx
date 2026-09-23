@@ -158,14 +158,13 @@ export const Footer: React.FC = () => {
         <div className="py-16 sm:py-20 border-b border-white/[0.08]">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
             <div className="max-w-2xl space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-[11px] font-mono-tech text-cyan-400 uppercase tracking-widest">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                ACCEPTING Q3/Q4 PRODUCT SPRINTS
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm">
+                <span className="text-slate-200 font-medium">SPRINT DISCUSSIONS // GET IN TOUCH</span>
               </div>
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-[1.1]">
-                HAVE A PROJECT IN MIND?{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-sky-300 font-serif italic font-normal">
-                  Let’s Talk.
+                Have a project in mind?{' '}
+                <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                  Let’s talk.
                 </span>
               </h2>
               <p className="text-slate-400 text-sm sm:text-base leading-relaxed">

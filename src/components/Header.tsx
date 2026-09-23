@@ -1,7 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Sun, Moon, Volume2, VolumeX, Play, Sparkles } from 'lucide-react';
+import { 
+  Menu, 
+  X, 
+  ArrowUpRight, 
+  ChevronRight, 
+  Sparkles, 
+  Smartphone, 
+  Globe, 
+  Cpu, 
+  ShieldCheck, 
+  DollarSign, 
+  Layers, 
+  Code2, 
+  Palette, 
+  TrendingUp, 
+  Building2, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  CheckCircle2 
+} from 'lucide-react';
 import { COMPANY_FACTS } from '../data/content';
-import { ambientAudio } from '../utils/audio';
 
 interface HeaderProps {
   darkMode: boolean;
@@ -10,6 +29,233 @@ interface HeaderProps {
   onOpenContact: () => void;
   onOpenReel: () => void;
 }
+
+type MenuCategory = 'home' | 'about' | 'services' | 'pricing' | 'contact';
+
+interface SubMenuItem {
+  title: string;
+  tagline: string;
+  hash: string;
+  badge?: string;
+  icon?: React.ReactNode;
+}
+
+interface MainMenuItem {
+  id: MenuCategory;
+  num: string;
+  title: string;
+  subtitle: string;
+  hash: string;
+  submenuHeader: string;
+  submenuDesc: string;
+  submenuItems: SubMenuItem[];
+}
+
+const MENU_DATA: MainMenuItem[] = [
+  {
+    id: 'home',
+    num: '01',
+    title: 'HOME',
+    subtitle: 'Main Flagship Experience & Overview',
+    hash: '#',
+    submenuHeader: 'HOME PAGE DIRECTORY',
+    submenuDesc: 'Explore the core highlights and interactive experiences of PureTech Innovations.',
+    submenuItems: [
+      { 
+        title: 'Selected Client Work', 
+        tagline: 'AI, Mobile Flagships, Fintech & Enterprise Logistics', 
+        hash: '#work',
+        icon: <Layers className="w-4 h-4 text-cyan-400" />
+      },
+      { 
+        title: 'Visionary R&D Labs', 
+        tagline: 'Interactive "What If?" Spatial AI & Systems Prototypes', 
+        hash: '#what-if',
+        icon: <Sparkles className="w-4 h-4 text-purple-400" />
+      },
+      { 
+        title: 'Executive Engineering Team', 
+        tagline: 'Top 2% Senior Product Architects & Researchers', 
+        hash: '#team',
+        icon: <Building2 className="w-4 h-4 text-indigo-400" />
+      },
+      { 
+        title: 'Client Reviews & Endorsements', 
+        tagline: 'Verified Testimonials from Founders & Tech Leaders', 
+        hash: '#testimonials',
+        icon: <CheckCircle2 className="w-4 h-4 text-[#f6891f]" />
+      }
+    ]
+  },
+  {
+    id: 'about',
+    num: '02',
+    title: 'ABOUT',
+    subtitle: 'Alpharetta, GA · Principles & Global Delivery',
+    hash: '#about',
+    submenuHeader: 'ABOUT PURETECH // COMPANY OVERVIEW',
+    submenuDesc: 'Founded in Alpharetta, Georgia, building sustainable, high-velocity digital products.',
+    submenuItems: [
+      { 
+        title: 'Agency Philosophy & Vision', 
+        tagline: 'Technology that moves your business forward with zero waste', 
+        hash: '#about',
+        icon: <Building2 className="w-4 h-4 text-cyan-400" />
+      },
+      { 
+        title: 'Leadership & Research Pods', 
+        tagline: 'Dedicated senior architects with ex-FAANG & research credentials', 
+        hash: '#team',
+        icon: <Cpu className="w-4 h-4 text-indigo-400" />
+      },
+      { 
+        title: 'Foundational 5 Pillars', 
+        tagline: 'Core methodologies & architectural standards for code longevity', 
+        hash: '#pillars',
+        icon: <ShieldCheck className="w-4 h-4 text-emerald-400" />
+      },
+      { 
+        title: 'Follow-the-Sun Delivery Nodes', 
+        tagline: 'Alpharetta GA, San Francisco, London UK engineering presence', 
+        hash: '#about',
+        icon: <MapPin className="w-4 h-4 text-[#f6891f]" />
+      }
+    ]
+  },
+  {
+    id: 'services',
+    num: '03',
+    title: 'SERVICES',
+    subtitle: '08 Core Digital Product Disciplines',
+    hash: '#services',
+    submenuHeader: 'ENGINEERING SERVICES // 08 DISCIPLINES',
+    submenuDesc: 'Select an engineering discipline to review specialized capabilities and technologies.',
+    submenuItems: [
+      { 
+        title: 'Mobile App Development', 
+        tagline: 'Native iOS (SwiftUI) & Android (Kotlin Compose) applications', 
+        hash: '#services-mobile',
+        badge: 'POPULAR',
+        icon: <Smartphone className="w-4 h-4 text-sky-400" />
+      },
+      { 
+        title: 'Custom Website Development', 
+        tagline: 'High-concurrency React 19, Next.js & TypeScript platforms', 
+        hash: '#services-web',
+        icon: <Globe className="w-4 h-4 text-emerald-400" />
+      },
+      { 
+        title: 'Corporate Branding & Software', 
+        tagline: 'Comprehensive design systems & corporate software architectures', 
+        hash: '#services-branding',
+        icon: <Palette className="w-4 h-4 text-purple-400" />
+      },
+      { 
+        title: 'Web & Desktop Applications', 
+        tagline: 'Full-stack cloud SaaS platforms & cross-platform desktop tools', 
+        hash: '#services-desktop',
+        icon: <Code2 className="w-4 h-4 text-cyan-400" />
+      },
+      { 
+        title: 'UI/UX Design & Prototyping', 
+        tagline: 'Human-centered interfaces, spatial UI & interactive wireframes', 
+        hash: '#services-uiux',
+        icon: <Layers className="w-4 h-4 text-indigo-400" />
+      },
+      { 
+        title: 'Quality Assurance & Testing', 
+        tagline: 'Automated multi-device CI/CD test harnesses (Appium, Selenium)', 
+        hash: '#services-qa',
+        icon: <ShieldCheck className="w-4 h-4 text-amber-400" />
+      },
+      { 
+        title: 'Applied AI & Autonomous Agents', 
+        tagline: 'Vector RAG, LLM Tooling, multimodal vision & multi-agent swarms', 
+        hash: '#services-ai',
+        badge: 'NEW',
+        icon: <Cpu className="w-4 h-4 text-[#f6891f]" />
+      },
+      { 
+        title: 'Digital Marketing & Growth', 
+        tagline: 'Conversion rate architecture, analytics pipelines & market scale', 
+        hash: '#services-marketing',
+        icon: <TrendingUp className="w-4 h-4 text-rose-400" />
+      }
+    ]
+  },
+  {
+    id: 'pricing',
+    num: '04',
+    title: 'PRICING',
+    subtitle: 'Sprint Cadences & Scope Blueprints',
+    hash: '#pricing',
+    submenuHeader: 'PRICING & SPRINT POD BLUEPRINTS',
+    submenuDesc: 'Transparent engineering sprint structures and resource allocations tailored to your stage.',
+    submenuItems: [
+      { 
+        title: 'Interactive Scope Estimator', 
+        tagline: 'Configure sprint duration, squad sizing & architectural frameworks', 
+        hash: '#estimator',
+        badge: 'INTERACTIVE',
+        icon: <DollarSign className="w-4 h-4 text-[#f6891f]" />
+      },
+      { 
+        title: 'Validated MVP Sprint Pod', 
+        tagline: 'Rapid 6-8 week deployment for validated product concepts', 
+        hash: '#estimator',
+        icon: <Sparkles className="w-4 h-4 text-cyan-400" />
+      },
+      { 
+        title: 'Dedicated Scale Flagship', 
+        tagline: 'Dedicated squads of senior architects for high-traffic platforms', 
+        hash: '#estimator',
+        icon: <Layers className="w-4 h-4 text-indigo-400" />
+      },
+      { 
+        title: 'Enterprise Retainers & SLAs', 
+        tagline: 'Mission-critical continuous modernization with guaranteed SLAs', 
+        hash: '#estimator',
+        icon: <ShieldCheck className="w-4 h-4 text-emerald-400" />
+      }
+    ]
+  },
+  {
+    id: 'contact',
+    num: '05',
+    title: 'CONTACT US',
+    subtitle: 'Start an Engagement Under Bilateral NDA',
+    hash: '#contact',
+    submenuHeader: 'DIRECT PARTNERSHIP & INQUIRY',
+    submenuDesc: 'Direct access to our senior engineering directors under strict bilateral mutual NDA.',
+    submenuItems: [
+      { 
+        title: 'Initiate Inquiry Under NDA', 
+        tagline: 'Guaranteed mutual NDA execution prior to architectural exchange', 
+        hash: '#contact',
+        badge: 'CONFIDENTIAL',
+        icon: <ShieldCheck className="w-4 h-4 text-emerald-400" />
+      },
+      { 
+        title: 'Alpharetta Headquarters Desk', 
+        tagline: COMPANY_FACTS.headquarters, 
+        hash: '#contact',
+        icon: <MapPin className="w-4 h-4 text-[#f6891f]" />
+      },
+      { 
+        title: 'Direct Phone Lines', 
+        tagline: `${COMPANY_FACTS.phone} · +1 (347) 783-9296`, 
+        hash: 'tel:+19723259561',
+        icon: <Phone className="w-4 h-4 text-cyan-400" />
+      },
+      { 
+        title: 'Official Communications', 
+        tagline: COMPANY_FACTS.email, 
+        hash: 'mailto:info@puretechinnovations.com',
+        icon: <Mail className="w-4 h-4 text-indigo-400" />
+      }
+    ]
+  }
+];
 
 export const Header: React.FC<HeaderProps> = ({
   darkMode,
@@ -21,7 +267,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('work');
-  const [audioActive, setAudioActive] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<MenuCategory>('services');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,18 +290,29 @@ export const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleSound = () => {
-    const state = ambientAudio.toggle();
-    setAudioActive(state);
-  };
-
   const scrollToSection = (id: string) => {
     setMenuOpen(false);
-    const element = document.getElementById(id);
+    const cleanId = id.replace('#', '');
+    const element = document.getElementById(cleanId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const handleSubmenuClick = (hash: string) => {
+    setMenuOpen(false);
+    if (hash.startsWith('#')) {
+      const targetId = hash.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    window.location.hash = hash;
+  };
+
+  const currentCategoryData = MENU_DATA.find((m) => m.id === activeCategory) || MENU_DATA[2];
 
   return (
     <>
@@ -115,7 +372,7 @@ export const Header: React.FC<HeaderProps> = ({
               ))}
             </nav>
 
-            {/* Right Side: Sound Toggle + Menu Button */}
+            {/* Right Side: Menu Button */}
             <div className="flex items-center gap-2.5 sm:gap-3">
               <button
                 id="fantasy-menu-btn"
@@ -130,13 +387,13 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </header>
 
-      {/* Fullscreen Cinematic Menu Drawer (Desktop & Mobile) */}
+      {/* Fullscreen Cinematic Inner Pages Menu Drawer (Desktop & Mobile) */}
       {menuOpen && (
         <div
           id="fantasy-fullscreen-menu"
-          className="fixed inset-0 z-40 bg-[#06070a]/98 backdrop-blur-2xl flex flex-col justify-between pt-24 pb-8 px-6 sm:px-12 lg:px-20 overflow-y-auto animate-in fade-in duration-200"
+          className="fixed inset-0 z-40 bg-[#06070a]/98 backdrop-blur-2xl flex flex-col justify-between pt-24 pb-8 px-5 sm:px-10 lg:px-16 overflow-y-auto animate-in fade-in duration-200"
         >
-          {/* Top Bar inside Menu */}
+          {/* Top Bar inside Menu: Studio Status & Direct Close */}
           <div className="flex items-center justify-between pb-6 border-b border-white/10">
             <div className="flex items-center gap-3">
               <img
@@ -150,79 +407,149 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             </div>
 
-            <button
-              onClick={toggleSound}
-              className="text-xs font-mono-tech text-[#f6891f] flex items-center gap-1.5 hover:underline cursor-pointer"
-            >
-              {audioActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-              <span>{audioActive ? 'SOUND: ON' : 'ENABLE AMBIENT AUDIO'}</span>
-            </button>
+            <div className="flex items-center gap-3">
+              <span className="text-[11px] font-mono-tech uppercase tracking-wider text-cyan-400 hidden sm:inline-block">
+                SELECT PAGE OR DISCIPLINE
+              </span>
+              <button
+                onClick={() => setMenuOpen(false)}
+                className="w-9 h-9 rounded-full bg-white/[0.08] hover:bg-white/[0.15] text-white flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Close menu"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          {/* Main Giant Menu Links */}
-          <div className="py-8 my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 flex flex-col space-y-3 sm:space-y-4">
-              {[
-                { id: 'work', num: '01', title: 'SELECTED WORK', subtitle: 'AI, Mobile, Fintech, Logistics' },
-                { id: 'capabilities', num: '02', title: 'SERVICES & LABS', subtitle: '06 Core Engineering Disciplines' },
-                { id: 'pillars', num: '03', title: 'WORK PROCESS', subtitle: '05 Pillars of PureTech Engineering' },
-                { id: 'about', num: '04', title: 'ABOUT PURETECH', subtitle: 'Alpharetta, GA · Principles & Methodologies' },
-                { id: 'team', num: '05', title: 'LEADERSHIP & TEAM', subtitle: 'Principals, Architects & Researchers' },
-                { id: 'testimonials', num: '06', title: 'CLIENT REVIEWS', subtitle: 'What Founders & CTOs Say About Us' },
-                { id: 'faq', num: '07', title: 'POPULAR QUESTIONS', subtitle: 'Engineering, Sprints, IP & Delivery SLAs' },
-                { id: 'estimator', num: '08', title: 'SCOPE ESTIMATOR', subtitle: 'Interactive Sprint Pod Blueprint' },
-                { id: 'contact', num: '09', title: 'LET’S TALK', subtitle: 'Start an Engagement Under Bilateral NDA' }
-              ].map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="group flex items-baseline gap-4 sm:gap-6 cursor-pointer text-left py-1"
-                >
-                  <span className="text-xs sm:text-sm font-mono-tech text-[#f6891f]/90 group-hover:text-[#f6891f] tracking-wider font-bold">
-                    {item.num}
-                  </span>
-                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
-                    <span className="text-2xl sm:text-4xl lg:text-5xl font-display font-black tracking-tight text-white group-hover:text-[#f6891f] group-hover:translate-x-2 transition-all duration-200">
-                      {item.title}
-                    </span>
-                    <span className="text-xs font-mono-tech text-slate-400 group-hover:text-slate-300 transition-colors">
-                      {item.subtitle}
-                    </span>
+          {/* Main Content Area: Split Navigation & Dynamic Sub-Menu Panel */}
+          <div className="py-8 my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            {/* Left Column (Main Inner Page Links) */}
+            <div className="lg:col-span-5 flex flex-col space-y-2 sm:space-y-3">
+              <div className="text-xs font-mono-tech uppercase tracking-[0.25em] text-slate-400 mb-2">
+                NAVIGATION DIRECTORY
+              </div>
+
+              {MENU_DATA.map((item) => {
+                const isSelected = activeCategory === item.id;
+
+                return (
+                  <div
+                    key={item.id}
+                    onClick={() => setActiveCategory(item.id)}
+                    className={`group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl cursor-pointer transition-all duration-300 border ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-white/[0.08] to-white/[0.02] border-[#f6891f]/60 shadow-[0_10px_30px_rgba(246,137,31,0.15)] translate-x-1'
+                        : 'bg-white/[0.01] border-white/[0.06] hover:bg-white/[0.04] hover:border-white/20'
+                    }`}
+                  >
+                    <div className="flex items-baseline gap-3.5 sm:gap-5">
+                      <span className={`text-xs sm:text-sm font-mono-tech tracking-wider font-bold transition-colors ${
+                        isSelected ? 'text-[#f6891f]' : 'text-slate-500 group-hover:text-slate-300'
+                      }`}>
+                        {item.num}
+                      </span>
+                      <div className="flex flex-col">
+                        <span className={`text-2xl sm:text-3xl lg:text-4xl font-display font-black tracking-tight transition-colors ${
+                          isSelected ? 'text-white' : 'text-slate-300 group-hover:text-white'
+                        }`}>
+                          {item.title}
+                        </span>
+                        <span className="text-xs font-mono-tech text-slate-400">
+                          {item.subtitle}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {item.id === 'services' && (
+                        <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-[#f6891f]/15 border border-[#f6891f]/40 text-[10px] font-mono-tech text-[#f6891f] font-bold">
+                          08 SUB-PAGES
+                        </span>
+                      )}
+                      <ChevronRight className={`w-5 h-5 transition-transform duration-200 ${
+                        isSelected ? 'text-[#f6891f] translate-x-1' : 'text-slate-600 group-hover:text-slate-400'
+                      }`} />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            {/* Right Column: Office Hubs & Direct Inquiry */}
-            <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 space-y-6">
-              <div className="space-y-1.5">
-                <span className="text-xs font-mono-tech uppercase tracking-widest text-[#f6891f] font-bold block">
-                  GLOBAL HEADQUARTERS
-                </span>
-                <p className="text-sm text-slate-200 font-light">
-                  {COMPANY_FACTS.headquarters}
-                </p>
-                <span className="text-xs font-mono-tech text-slate-400 block pt-1">
-                  PHONE: {COMPANY_FACTS.phone}
+            {/* Right Column: Dynamic Sub-Menu Details Panel */}
+            <div className="lg:col-span-7 bg-[#0c101c]/90 border border-white/15 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl backdrop-blur-xl">
+              {/* Submenu Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/10 gap-2">
+                <div>
+                  <span className="text-xs font-mono-tech uppercase tracking-widest text-[#f6891f] font-bold block mb-1">
+                    {currentCategoryData.submenuHeader}
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-300 font-light">
+                    {currentCategoryData.submenuDesc}
+                  </p>
+                </div>
+                <span className="text-[11px] font-mono-tech text-slate-400 shrink-0">
+                  {currentCategoryData.submenuItems.length} ITEMS
                 </span>
               </div>
 
-              <div className="pt-4 border-t border-white/10 space-y-2">
-                <span className="text-xs font-mono-tech uppercase tracking-widest text-slate-400 block">
-                  DIRECT PARTNERSHIP
-                </span>
+              {/* Sub-menu Items Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                {currentCategoryData.submenuItems.map((sub, sIdx) => (
+                  <a
+                    key={sIdx}
+                    href={sub.hash}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSubmenuClick(sub.hash);
+                    }}
+                    className="group p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.08] hover:border-[#f6891f]/50 transition-all duration-200 flex flex-col justify-between cursor-pointer space-y-2 relative"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        {sub.icon}
+                        <span className="text-sm sm:text-base font-display font-bold text-white group-hover:text-[#f6891f] transition-colors">
+                          {sub.title}
+                        </span>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-slate-500 group-hover:text-[#f6891f] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                    </div>
+
+                    <p className="text-xs text-slate-400 font-light leading-relaxed">
+                      {sub.tagline}
+                    </p>
+
+                    {sub.badge && (
+                      <div className="pt-1">
+                        <span className="inline-block px-2 py-0.5 rounded-md bg-[#f6891f]/10 border border-[#f6891f]/30 text-[9px] font-mono-tech text-[#f6891f] font-bold uppercase tracking-wider">
+                          {sub.badge}
+                        </span>
+                      </div>
+                    )}
+                  </a>
+                ))}
+              </div>
+
+              {/* Bottom Quick Action Banner inside Sub-menu */}
+              <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-xs font-mono-tech text-slate-400 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>ALPHARETTA ENGINEERING HUB · ENGAGEMENTS OPEN</span>
+                </div>
+
                 <button
                   onClick={() => {
                     setMenuOpen(false);
                     onOpenContact();
                   }}
-                  className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#f6891f] to-[#ff9d3b] hover:from-[#e07310] hover:to-[#f6891f] text-white font-display font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-[#f6891f]/20"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-gradient-to-r from-[#f6891f] to-[#ff9d3b] hover:from-[#e07310] hover:to-[#f6891f] text-white font-display font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-[#f6891f]/20 active:scale-95"
                 >
                   <span>Initiate Inquiry Under NDA</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
+
           </div>
 
           {/* Bottom Footer inside Menu */}
@@ -241,3 +568,4 @@ export const Header: React.FC<HeaderProps> = ({
     </>
   );
 };
+

@@ -68,9 +68,10 @@ const CleanVideoShowcase: React.FC<{
         style={{
           transform: `perspective(1100px) rotateY(${baseRotateY + tilt.y}deg) rotateX(${baseRotateX + tilt.x}deg)`,
           transformStyle: 'preserve-3d',
-          transition: 'transform 0.16s cubic-bezier(0.2, 0, 0, 1)'
+          transition: 'transform 0.16s cubic-bezier(0.2, 0, 0, 1)',
+          backgroundImage: `url(${project.heroImage})`
         }}
-        className="relative rounded-[28px] sm:rounded-[32px] overflow-hidden border border-white/[0.12] bg-[#080a10] shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)] group cursor-pointer w-full aspect-[16/10]"
+        className="relative rounded-[28px] sm:rounded-[32px] overflow-hidden border border-white/[0.12] bg-[#080a10] bg-cover bg-center shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)] group cursor-pointer w-full aspect-[16/10]"
       >
         {/* Native 3D Product Video Loop */}
         {project.videoUrl ? (
@@ -216,9 +217,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
             return (
               <div
                 key={p.id}
-                className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-out ${
+                className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-500 ease-out ${
                   isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
                 }`}
+                style={{ backgroundImage: `url(${p.heroImage})` }}
               >
                 {p.videoUrl ? (
                   <video
@@ -301,13 +303,14 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
             className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6"
           >
             <div>
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.2em] text-cyan-400 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                SELECTED WORK &amp; CLIENT IMPACT
+              <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-3">
+                <span className="text-slate-200 font-medium">SELECTED WORK // CLIENT IMPACT</span>
               </motion.div>
               <motion.h2 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-7xl font-display font-black text-white tracking-tighter leading-tight">
                 Intelligent products. <br />
-                <span className="text-slate-400">Measurable impact.</span>
+                <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                  Measurable impact.
+                </span>
               </motion.h2>
             </div>
 
@@ -317,10 +320,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
               </motion.p>
 
               {/* Layout Toggle: Sticky Stream vs Alternating vs Grid */}
-              <div className="inline-flex items-center p-1 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-md">
+              <div className="inline-flex max-w-full overflow-x-auto no-scrollbar items-center p-1 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-md">
                 <button
                   onClick={() => setViewMode('sticky')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-mono-tech uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     viewMode === 'sticky'
                       ? 'bg-cyan-400 text-slate-950 font-bold shadow-md shadow-cyan-400/20'
                       : 'text-slate-400 hover:text-white'
@@ -332,7 +335,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                 </button>
                 <button
                   onClick={() => setViewMode('alternating')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-mono-tech uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     viewMode === 'alternating'
                       ? 'bg-cyan-400 text-slate-950 font-bold shadow-md shadow-cyan-400/20'
                       : 'text-slate-400 hover:text-white'
@@ -344,7 +347,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                 </button>
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer ${
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-mono-tech uppercase tracking-wider flex items-center gap-1.5 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     viewMode === 'grid'
                       ? 'bg-cyan-400 text-slate-950 font-bold shadow-md shadow-cyan-400/20'
                       : 'text-slate-400 hover:text-white'
@@ -494,19 +497,19 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                       </div>
 
                       {/* CTA Action Bar */}
-                      <div className="flex items-center justify-between pt-4 border-t border-white/[0.08]">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-white/[0.08]">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             onSelectCaseStudy(project);
                           }}
-                          className="px-6 py-3 rounded-full bg-white text-slate-950 hover:bg-slate-200 font-display font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-xl shadow-white/10 cursor-pointer active:scale-95 group"
+                          className="w-full sm:w-auto justify-center px-6 py-3 rounded-full bg-white text-slate-950 hover:bg-slate-200 font-display font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-xl shadow-white/10 cursor-pointer active:scale-95 group"
                         >
                           <span>Explore Case Study</span>
                           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </button>
 
-                        <span className="text-[11px] font-mono-tech text-slate-400">
+                        <span className="text-[10px] sm:text-[11px] font-mono-tech text-slate-400 text-center sm:text-right">
                           {isRight ? 'Right Side Showcase' : 'Left Side Showcase'} · 0{idx + 1}
                         </span>
                       </div>
@@ -645,7 +648,10 @@ export const WorkSection: React.FC<WorkSectionProps> = ({ onSelectCaseStudy }) =
                 className="group relative rounded-3xl overflow-hidden border border-white/[0.1] bg-[#0c0e15]/90 backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:shadow-2xl hover:shadow-cyan-500/10 cursor-pointer flex flex-col"
               >
                 {/* Media Container with Looping Video */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
+                <div 
+                  className="relative aspect-[16/10] w-full overflow-hidden bg-black bg-cover bg-center"
+                  style={{ backgroundImage: `url(${project.heroImage})` }}
+                >
                   {project.videoUrl ? (
                     <video
                       ref={(el) => {

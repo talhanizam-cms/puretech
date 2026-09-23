@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { 
   Cpu, 
@@ -32,6 +32,17 @@ const PILLAR_COLORS: Record<string, string> = {
 
 export const FoundationalPillarsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activePillarIndex, setActivePillarIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Hook into vertical scroll for scrollytelling
   const { scrollYProgress } = useScroll({
@@ -46,32 +57,59 @@ export const FoundationalPillarsSection: React.FC = () => {
     mass: 0.4
   });
 
+  // Track active pillar index based on scroll
+  useEffect(() => {
+    return springProgress.on('change', (latest) => {
+      if (latest < 0.25) setActivePillarIndex(0);
+      else if (latest < 0.43) setActivePillarIndex(1);
+      else if (latest < 0.61) setActivePillarIndex(2);
+      else if (latest < 0.79) setActivePillarIndex(3);
+      else setActivePillarIndex(4);
+    });
+  }, [springProgress]);
+
   // Subtle vertical parallax on the flank headers for high-end momentum
   const leftFlankY = useTransform(springProgress, [0, 1], ['10px', '-10px']);
   const rightFlankY = useTransform(springProgress, [0, 1], ['-10px', '10px']);
 
   // Opening sequence: Headings start together in the MIDDLE, then part to the LEFT and RIGHT flanks!
-  const leftFlankX = useTransform(springProgress, [0, 0.16], ['320px', '0px']);
-  const rightFlankX = useTransform(springProgress, [0, 0.16], ['-320px', '0px']);
+  const leftFlankX = useTransform(springProgress, [0, 0.20], ['315px', '0px']);
+  const rightFlankX = useTransform(springProgress, [0, 0.20], ['-315px', '0px']);
+
+  // Heading scale: starts large (1.55) in the middle, then shrinks down smoothly to normal size (1.0) as they slide to flanks!
+  const headingScale = useTransform(springProgress, [0, 0.20], [1.55, 1.0]);
 
   // Flank sub-details (stepper nav & compliance checklist) fade in as headings reach the flanks
-  const flankDetailsOpacity = useTransform(springProgress, [0.06, 0.16], [0, 1]);
+  const flankDetailsOpacity = useTransform(springProgress, [0.10, 0.20], [0, 1]);
+  const flankDetailsY = useTransform(springProgress, [0.10, 0.20], ['20px', '0px']);
 
   // Center corridor cards emerge as headings part
-  const centerOpacity = useTransform(springProgress, [0.02, 0.16], [0, 1]);
-  const centerScale = useTransform(springProgress, [0.02, 0.16], [0.92, 1]);
+  const centerOpacity = useTransform(springProgress, [0.08, 0.20], [0, 1]);
+  const centerScale = useTransform(springProgress, [0.04, 0.20], [0.92, 1]);
 
-  // Center cards stream through the middle from Card 01 to Card 05 across [0.16, 0.88]
-  const cardsY = useTransform(springProgress, [0.16, 0.88], ['0vh', '-200vh']);
+  // Center cards stream through the middle from Card 01 to Card 05 across [0.20, 0.90]
+  const cardsY = useTransform(springProgress, [0.20, 0.90], ['0%', '-80%']);
 
-  // Scrollytelling progress bar strictly mapped from 0.02 to 0.90 (reaches 100% when Card 05 settles, 0% dead scroll!)
-  const activeProgress = useTransform(springProgress, [0.02, 0.90], [0, 1]);
+  // Scrollytelling progress bar strictly mapped from 0.02 to 0.92 (reaches 100% when Card 05 settles, 0% dead scroll!)
+  const activeProgress = useTransform(springProgress, [0.02, 0.92], [0, 1]);
+
+  const scrollToPillar = (index: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const top = rect.top + window.scrollY;
+    const scrollDist = containerRef.current.offsetHeight - window.innerHeight;
+    const targetProgress = 0.20 + index * 0.17;
+    window.scrollTo({
+      top: top + scrollDist * targetProgress,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <section 
       ref={containerRef} 
       id="pillars" 
-      className="relative h-[380vh] bg-[#05070f] select-none"
+      className="relative h-[380vh] bg-[#05070f] select-none w-full"
     >
       {/* Background Ambience & Gradient Fades */}
       <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#05060b] to-transparent pointer-events-none z-10" />
@@ -84,20 +122,10 @@ export const FoundationalPillarsSection: React.FC = () => {
       {/* Sticky Fullscreen Viewport that stays pinned while user scrolls */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-4 sm:py-6 z-20">
         
-        {/* Top Eyebrow Subtitle (Nextnox {02} Subtitle Style) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-30 text-center">
-          <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.25em] text-cyan-400">
-            <span className="text-white/40 font-light">{"{"}</span>
-            <span className="font-bold text-cyan-400">02</span>
-            <span className="text-white/40 font-light">{"}"}</span>
-            <span className="text-slate-300">FOUNDATIONAL PILLARS // ARCHITECTURAL DNA</span>
-          </div>
-        </div>
-
         {/* Mobile/Tablet Fallback Header (Visible on screens < lg) */}
-        <div className="lg:hidden w-full px-4 text-center select-none pt-2">
-          <h3 className="text-2xl sm:text-3xl font-display font-black text-white uppercase tracking-tight drop-shadow-md">
-            Our Proven <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">Foundational Pillars</span>
+        <div className="lg:hidden max-w-7xl mx-auto px-4 sm:px-6 w-full z-30 text-center pt-8 sm:pt-12 select-none">
+          <h3 className="text-lg sm:text-2xl font-display font-black text-white uppercase tracking-tight drop-shadow-md">
+            Our Proven <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white normal-case">Foundational Pillars</span>
           </h3>
         </div>
 
@@ -105,14 +133,17 @@ export const FoundationalPillarsSection: React.FC = () => {
         {/* 3-COLUMN MAIN STAGE (Nextnox Work Process Architecture)                   */}
         {/* Left: FOUNDATIONAL, Center: Cards stream, Right: PILLARS                   */}
         {/* ========================================================================= */}
-        <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto flex items-center justify-between gap-6 xl:gap-8">
+        <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto flex items-center justify-center lg:justify-between gap-6 xl:gap-8">
           
           {/* 1. LEFT FLANK: "OUR PROVEN FOUNDATIONAL" (Sticky on Left) */}
           <motion.div 
             style={{ y: leftFlankY, x: leftFlankX }}
-            className="hidden lg:flex flex-col items-end text-right w-[260px] xl:w-[320px] shrink-0 select-none will-change-transform space-y-4"
+            className="hidden lg:flex flex-col items-end text-right w-[260px] xl:w-[320px] shrink-0 select-none will-change-transform space-y-4 z-30"
           >
-            <div className="space-y-1.5">
+            <motion.div 
+              style={{ scale: headingScale, transformOrigin: 'right center' }}
+              className="space-y-1.5 will-change-transform"
+            >
               <span className="text-xs font-mono-tech text-cyan-400 uppercase tracking-widest block">
                 OUR PROVEN
               </span>
@@ -123,35 +154,49 @@ export const FoundationalPillarsSection: React.FC = () => {
                 <span className="w-2.5 h-0.5 bg-cyan-400" />
                 <span>05 CORE DISCIPLINES</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Stepper Timeline Navigation (fades in as heading settles on left flank) */}
             <motion.div 
-              style={{ opacity: flankDetailsOpacity }}
+              style={{ opacity: flankDetailsOpacity, y: flankDetailsY }}
               className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2 w-full text-xs font-mono-tech"
             >
               <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-bold">
                 Architectural Standards
               </div>
-              <ul className="space-y-1 text-slate-400 text-[11px]">
-                {CORE_PILLARS.map((p, i) => (
-                  <li key={p.id} className="flex items-center justify-end gap-2">
-                    <span className="truncate">{p.badge}</span>
-                    <span className="text-cyan-400 font-bold">0{i + 1}</span>
-                  </li>
-                ))}
+              <ul className="space-y-1.5 text-slate-400 text-[11px]">
+                {CORE_PILLARS.map((p, i) => {
+                  const isActive = activePillarIndex === i;
+                  return (
+                    <li 
+                      key={p.id} 
+                      onClick={() => scrollToPillar(i)}
+                      className={`flex items-center justify-end gap-2.5 cursor-pointer py-1 px-2 rounded-lg transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-cyan-500/10 text-cyan-300 font-bold border-r-2 border-cyan-400' 
+                          : 'hover:text-slate-200 hover:bg-white/[0.02]'
+                      }`}
+                    >
+                      <span className="truncate">{p.badge}</span>
+                      <span className={isActive ? 'text-cyan-400 font-bold' : 'text-slate-500'}>0{i + 1}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </motion.div>
           </motion.div>
 
-          {/* 2. CENTER CORRIDOR: Cards Vertical Scroll Stream (Constrained height prevents flex blowout) */}
+          {/* 2. CENTER CORRIDOR: Cards Vertical Scroll Stream with Smooth Viewport Mask */}
           <motion.div 
-            style={{ opacity: centerOpacity, scale: centerScale }}
-            className="relative w-full max-w-[540px] xl:max-w-[580px] h-[480px] shrink-0 overflow-visible z-30"
+            style={{ 
+              opacity: isMobile ? 1 : centerOpacity, 
+              scale: isMobile ? 1 : centerScale 
+            }}
+            className="relative w-full max-w-[92vw] sm:max-w-[480px] lg:max-w-[540px] xl:max-w-[580px] h-[390px] sm:h-[460px] lg:h-[510px] xl:h-[530px] shrink-0 overflow-hidden z-30 [mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_92%,transparent_100%)]"
           >
             <motion.div 
               style={{ y: cardsY }}
-              className="absolute inset-x-0 top-0 space-y-8 sm:space-y-10 will-change-transform pb-12"
+              className="absolute inset-x-0 top-0 space-y-6 sm:space-y-10 will-change-transform pb-12"
             >
               {CORE_PILLARS.map((pillar, idx) => {
                 const formattedIdx = `0${idx + 1}`;
@@ -160,7 +205,7 @@ export const FoundationalPillarsSection: React.FC = () => {
                 return (
                   <div
                     key={pillar.id}
-                    className="group relative w-full rounded-[30px] p-6 sm:p-8 bg-[#0a0d16]/95 border border-white/15 backdrop-blur-md shadow-[0_25px_80px_rgba(0,0,0,0.85)] hover:border-cyan-400/40 transition-all duration-500 overflow-hidden"
+                    className="group relative w-full rounded-[24px] sm:rounded-[30px] p-4 sm:p-7 bg-[#0a0d16]/95 border border-white/15 backdrop-blur-md shadow-[0_25px_80px_rgba(0,0,0,0.85)] hover:border-cyan-400/40 transition-all duration-500 overflow-hidden"
                   >
                     {/* Subtle Background Glow Halo in Pillar Color */}
                     <div 
@@ -174,23 +219,23 @@ export const FoundationalPillarsSection: React.FC = () => {
                     />
 
                     {/* Card Top Row: Index, Title & Nextnox 4-Star Quality Nodes */}
-                    <div className="relative z-10 flex items-center justify-between gap-4 pb-5 border-b border-white/10">
-                      <div className="flex items-center gap-3">
+                    <div className="relative z-10 flex items-center justify-between gap-4 pb-3 sm:pb-5 border-b border-white/10">
+                      <div className="flex items-center gap-2.5 sm:gap-3">
                         <span 
-                          className="w-2.5 h-2.5 rounded-full" 
+                          className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full" 
                           style={{ backgroundColor: accentColor }}
                         />
-                        <span className="font-mono-tech text-xs font-bold uppercase tracking-widest text-cyan-400">
+                        <span className="font-mono-tech text-[10px] sm:text-xs font-bold uppercase tracking-widest text-cyan-400 truncate">
                           {formattedIdx} // {pillar.badge || 'FOUNDATIONAL DISCIPLINE'}
                         </span>
                       </div>
 
                       {/* Nextnox 4-Star / Quality Indicator Array */}
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 shrink-0">
                         {[...Array(4)].map((_, sIdx) => (
                           <Star 
                             key={sIdx} 
-                            className="w-3.5 h-3.5 text-amber-400 fill-amber-400/90 transition-transform group-hover:scale-110" 
+                            className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-400 fill-amber-400/90 transition-transform group-hover:scale-110" 
                             style={{ transitionDelay: `${sIdx * 60}ms` }}
                           />
                         ))}
@@ -198,42 +243,42 @@ export const FoundationalPillarsSection: React.FC = () => {
                     </div>
 
                     {/* Card Center: Icon Emblem with Ambient Rings (Nextnox item-icon) */}
-                    <div className="relative z-10 my-4 flex items-center justify-center">
-                      <div className="relative p-5 rounded-3xl bg-white/[0.04] border border-white/10 group-hover:border-cyan-400/40 transition-all duration-500 shadow-xl group-hover:scale-110">
+                    <div className="relative z-10 my-2.5 sm:my-4 flex items-center justify-center">
+                      <div className="relative p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/10 group-hover:border-cyan-400/40 transition-all duration-500 shadow-xl group-hover:scale-110">
                         {/* Concentric Pulsing Ring */}
                         <div 
                           className="absolute -inset-2 rounded-[28px] blur-sm opacity-30 group-hover:opacity-70 transition-opacity duration-500"
                           style={{ backgroundColor: accentColor }}
                         />
-                        <div className="relative z-10">
+                        <div className="relative z-10 scale-90 sm:scale-100">
                           {PILLAR_ICONS[pillar.iconName]}
                         </div>
                       </div>
                     </div>
 
                     {/* Card Bottom: Typographic Content */}
-                    <div className="relative z-10 space-y-2 text-center sm:text-left">
-                      <h4 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+                    <div className="relative z-10 space-y-1 sm:space-y-2 text-center sm:text-left">
+                      <h4 className="text-lg sm:text-2xl lg:text-3xl font-display font-extrabold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
                         {pillar.title}
                       </h4>
 
-                      <p className="text-xs sm:text-sm font-mono-tech text-cyan-400 font-semibold leading-relaxed">
+                      <p className="text-[11px] sm:text-sm font-mono-tech text-cyan-400 font-semibold leading-relaxed">
                         {pillar.tagline}
                       </p>
 
-                      <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pt-1">
+                      <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed line-clamp-2 sm:line-clamp-none pt-0.5 sm:pt-1">
                         {pillar.description}
                       </p>
                     </div>
 
                     {/* Footer Seal & Assurance Tag */}
-                    <div className="relative z-10 pt-5 mt-5 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono-tech text-slate-400">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>PureTech Production-Ready Certified</span>
+                    <div className="relative z-10 pt-3 sm:pt-5 mt-3 sm:mt-5 border-t border-white/[0.08] flex items-center justify-between gap-3 text-[10px] sm:text-xs font-mono-tech text-slate-400">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" />
+                        <span className="truncate">PureTech Production-Ready Certified</span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 text-cyan-400 font-bold uppercase tracking-wider text-[11px] group-hover:translate-x-1 transition-transform">
+                      <div className="hidden sm:flex items-center gap-1.5 text-cyan-400 font-bold uppercase tracking-wider text-[11px] group-hover:translate-x-1 transition-transform shrink-0">
                         <span>ENTERPRISE ARCHITECTURE</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </div>
@@ -247,24 +292,27 @@ export const FoundationalPillarsSection: React.FC = () => {
           {/* 3. RIGHT FLANK: "PILLARS OF EXCELLENCE" (Sticky on Right) */}
           <motion.div 
             style={{ y: rightFlankY, x: rightFlankX }}
-            className="hidden lg:flex flex-col items-start text-left w-[260px] xl:w-[320px] shrink-0 select-none will-change-transform space-y-4"
+            className="hidden lg:flex flex-col items-start text-left w-[260px] xl:w-[320px] shrink-0 select-none will-change-transform space-y-4 z-30"
           >
-            <div className="space-y-1.5">
+            <motion.div 
+              style={{ scale: headingScale, transformOrigin: 'left center' }}
+              className="space-y-1.5 will-change-transform"
+            >
+              <span className="text-xs font-mono-tech text-[#f6891f] uppercase tracking-widest block">
+                STANDARDS //
+              </span>
               <h3 className="text-2xl sm:text-3xl xl:text-4xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-[#ff9d3b] to-amber-200 uppercase tracking-tight leading-[0.95] drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
                 PILLARS
               </h3>
-              <span className="text-xs font-mono-tech text-slate-300 uppercase tracking-widest block">
-                OF EXCELLENCE
-              </span>
               <div className="flex items-center gap-2 pt-1.5 text-xs font-mono-tech text-slate-400">
-                <span>ZERO-COMPROMISE STACK</span>
+                <span>OF EXCELLENCE</span>
                 <span className="w-2.5 h-0.5 bg-[#f6891f]" />
               </div>
-            </div>
+            </motion.div>
 
             {/* Quality & Assurance Badges (fades in as heading settles on right flank) */}
             <motion.div 
-              style={{ opacity: flankDetailsOpacity }}
+              style={{ opacity: flankDetailsOpacity, y: flankDetailsY }}
               className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3 w-full text-xs font-mono-tech"
             >
               <div className="text-[10px] text-[#f6891f] uppercase tracking-widest font-bold">

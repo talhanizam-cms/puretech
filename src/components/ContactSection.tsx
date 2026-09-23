@@ -29,7 +29,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
   return (
     <section id="contact" className="py-24 sm:py-36 relative overflow-hidden">
       {/* Ambient Looping Contact Background Video */}
-      <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+      <div 
+        className="absolute inset-0 pointer-events-none -z-10 overflow-hidden bg-cover bg-center"
+        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80)' }}
+      >
         <video
           ref={(el) => {
             if (el) {
@@ -48,6 +51,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
           muted
           playsInline
           preload="metadata"
+          poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80"
           className="w-full h-full object-cover opacity-25 filter contrast-125 brightness-80 saturate-120"
         >
           <source src="/videos/contact-bg.mp4" type="video/mp4" />
@@ -72,13 +76,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ initialSubject =
             className="lg:col-span-5 space-y-8"
           >
             <div>
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.2em] text-cyan-400 mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                INITIATE PROJECT COLLABORATION · REQUEST A QUOTE
+              <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-3">
+                <span className="text-slate-200 font-medium">INITIATE COLLABORATION // REQUEST A QUOTE</span>
               </motion.div>
-              <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl lg:text-7xl font-display font-black text-white tracking-tighter leading-[1.02]">
+              <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl lg:text-7xl font-display font-black text-white tracking-tight leading-[1.05]">
                 Have a vision? <br />
-                <span className="text-slate-400">Let’s talk.</span>
+                <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                  Let’s talk.
+                </span>
               </motion.h2>
               <motion.p variants={fadeInUp} className="mt-4 text-base sm:text-lg text-slate-300 font-light leading-relaxed">
                 Providing you the perfect solution for your business needs. Let’s work together and unlock doors to success.

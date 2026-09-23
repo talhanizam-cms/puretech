@@ -15,17 +15,20 @@ const PARALLAX_COLUMNS = [
     {
       title: 'Spatial Touch Experience',
       tag: '01 // WEARABLE OS',
-      videoUrl: '/videos/bg-slowmo-interfaces.mp4'
+      videoUrl: '/videos/bg-slowmo-interfaces.mp4',
+      poster: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'Enterprise Headless Platform',
       tag: '02 // SCALABLE SAAS',
-      videoUrl: '/videos/fantasy-web-salesforce.mp4'
+      videoUrl: '/videos/fantasy-web-salesforce.mp4',
+      poster: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'Autonomous Neural Agent',
       tag: '03 // COGNITIVE AI',
-      videoUrl: '/videos/fantasy-ai-eliza.mp4'
+      videoUrl: '/videos/fantasy-ai-eliza.mp4',
+      poster: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80'
     }
   ],
   // Column 2: Mobile Flagships, Cockpits & Cloud Build
@@ -33,17 +36,20 @@ const PARALLAX_COLUMNS = [
     {
       title: 'Intelligent Mobile Flagship',
       tag: '04 // MOBILE EXPERIENCE',
-      videoUrl: '/videos/fantasy-what-is-an-app.mp4'
+      videoUrl: '/videos/fantasy-what-is-an-app.mp4',
+      poster: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'Curved Spatial Cockpit UI',
       tag: '05 // AUTOMOTIVE OS',
-      videoUrl: '/videos/solaris-os.mp4'
+      videoUrl: '/videos/solaris-os.mp4',
+      poster: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'High-Throughput Dev Cloud',
       tag: '06 // CLOUD ARCHITECTURE',
-      videoUrl: '/videos/fantasy-software-build.mp4'
+      videoUrl: '/videos/fantasy-software-build.mp4',
+      poster: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80'
     }
   ],
   // Column 3: AI Neural Core, Native Touch & Master Sizzle
@@ -51,17 +57,20 @@ const PARALLAX_COLUMNS = [
     {
       title: 'Generative AI Interface',
       tag: '07 // NEURAL CORE',
-      videoUrl: '/videos/fantasy-ai-eliza.mp4'
+      videoUrl: '/videos/fantasy-ai-eliza.mp4',
+      poster: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'Tactile Motion Micro-Interactions',
       tag: '08 // 60 FPS FLUIDITY',
-      videoUrl: '/videos/fantasy-mobile-app.mp4'
+      videoUrl: '/videos/fantasy-mobile-app.mp4',
+      poster: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'PureTech 3D Innovations Sizzle',
       tag: '09 // 4K SHOWREEL',
-      videoUrl: '/videos/fantasy-master-sizzle.mp4'
+      videoUrl: '/videos/fantasy-master-sizzle.mp4',
+      poster: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80'
     }
   ],
   // Column 4: Connected Ambient Devices & Multimodal Runtimes
@@ -69,17 +78,20 @@ const PARALLAX_COLUMNS = [
     {
       title: 'Connected Healthcare Device',
       tag: '10 // BIOMEDICAL AI',
-      videoUrl: '/videos/omnihealth-ai.mp4'
+      videoUrl: '/videos/omnihealth-ai.mp4',
+      poster: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'Headless Global Platform',
       tag: '11 // DISTRIBUTED EDGE',
-      videoUrl: '/videos/bg-web-platforms.mp4'
+      videoUrl: '/videos/bg-web-platforms.mp4',
+      poster: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80'
     },
     {
       title: 'Real-Time Multimodal Copilot',
       tag: '12 // COPILOT RUNTIME',
-      videoUrl: '/videos/synapse-copilot.mp4'
+      videoUrl: '/videos/synapse-copilot.mp4',
+      poster: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80'
     }
   ]
 ];
@@ -147,11 +159,12 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
         {/* ----------------------------------------------------------------------- */}
         <div className="absolute inset-0 flex justify-center items-center gap-4 sm:gap-6 lg:gap-8 px-4 pointer-events-none">
           {/* Column 1 */}
-          <motion.div style={{ y: col1Y }} className="flex flex-col gap-6 sm:gap-8 w-56 sm:w-64 lg:w-72 shrink-0">
+          <motion.div style={{ y: col1Y }} className="hidden md:flex flex-col gap-6 sm:gap-8 w-56 sm:w-64 lg:w-72 shrink-0">
             {PARALLAX_COLUMNS[0].map((item, idx) => (
               <div
                 key={idx}
-                className="relative aspect-[3/4] rounded-[24px] overflow-hidden border border-white/10 bg-zinc-900/90 shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+                className="relative aspect-[3/4] rounded-[24px] overflow-hidden border border-white/10 bg-zinc-900/90 bg-cover bg-center shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+                style={{ backgroundImage: `url(${item.poster})` }}
               >
                 <video
                   ref={(el) => {
@@ -172,6 +185,7 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
                   muted
                   playsInline
                   preload="metadata"
+                  poster={item.poster}
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.75] saturate-[1.1]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -188,15 +202,16 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
           </motion.div>
 
           {/* Column 2 (Features the main smartphone hero card) */}
-          <motion.div style={{ y: col2Y }} className="flex flex-col gap-6 sm:gap-8 w-56 sm:w-64 lg:w-72 shrink-0">
+          <motion.div style={{ y: col2Y }} className="flex flex-col gap-6 sm:gap-8 w-60 sm:w-64 lg:w-72 shrink-0">
             {PARALLAX_COLUMNS[1].map((item, idx) => (
               <div
                 key={idx}
-                className={`relative rounded-[24px] overflow-hidden border bg-zinc-900/90 shadow-[0_25px_60px_rgba(0,0,0,0.95)] ${
+                className={`relative rounded-[24px] overflow-hidden border bg-zinc-900/90 bg-cover bg-center shadow-[0_25px_60px_rgba(0,0,0,0.95)] ${
                   idx === 0
                     ? 'aspect-[16/10] sm:aspect-[4/3] border-cyan-500/40 ring-1 ring-cyan-400/30'
                     : 'aspect-[3/4] border-white/10'
                 }`}
+                style={{ backgroundImage: `url(${item.poster})` }}
               >
                 <video
                   ref={(el) => {
@@ -217,6 +232,7 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
                   muted
                   playsInline
                   preload="metadata"
+                  poster={item.poster}
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.85] saturate-[1.2]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -233,11 +249,12 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
           </motion.div>
 
           {/* Column 3 */}
-          <motion.div style={{ y: col3Y }} className="flex flex-col gap-6 sm:gap-8 w-56 sm:w-64 lg:w-72 shrink-0">
+          <motion.div style={{ y: col3Y }} className="hidden md:flex flex-col gap-6 sm:gap-8 w-56 sm:w-64 lg:w-72 shrink-0">
             {PARALLAX_COLUMNS[2].map((item, idx) => (
               <div
                 key={idx}
-                className="relative aspect-[3/4] rounded-[28px] overflow-hidden border border-white/10 bg-[#090c15]/80 shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-md"
+                className="relative aspect-[3/4] rounded-[28px] overflow-hidden border border-white/10 bg-[#090c15]/80 bg-cover bg-center shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-md"
+                style={{ backgroundImage: `url(${item.poster})` }}
               >
                 <video
                   ref={(el) => {
@@ -258,6 +275,7 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
                   muted
                   playsInline
                   preload="metadata"
+                  poster={item.poster}
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.7] saturate-[1.15]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -278,7 +296,8 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
             {PARALLAX_COLUMNS[3].map((item, idx) => (
               <div
                 key={idx}
-                className="relative aspect-[3/4] rounded-[28px] overflow-hidden border border-white/10 bg-[#090c15]/80 shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-md"
+                className="relative aspect-[3/4] rounded-[28px] overflow-hidden border border-white/10 bg-[#090c15]/80 bg-cover bg-center shadow-[0_25px_60px_rgba(0,0,0,0.85)] backdrop-blur-md"
+                style={{ backgroundImage: `url(${item.poster})` }}
               >
                 <video
                   ref={(el) => {
@@ -299,6 +318,7 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
                   muted
                   playsInline
                   preload="metadata"
+                  poster={item.poster}
                   className="w-full h-full object-cover filter contrast-[1.08] brightness-[0.7] saturate-[1.15]"
                 >
                   <source src={item.videoUrl} type="video/mp4" />
@@ -333,20 +353,25 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
         {/* PHASE 1: "What if? Launching the next generation of Intelligent Experiences" */}
         <motion.div
           style={{ opacity: phase1Opacity, scale: phase1Scale, y: phase1Y }}
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none"
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 pointer-events-none"
         >
-          <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 pointer-events-auto p-6 sm:p-10 rounded-[32px] bg-[#070912]/80 backdrop-blur-2xl border border-white/10 shadow-[0_25px_80px_rgba(0,0,0,0.9)]">
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono-tech uppercase tracking-[0.2em] text-cyan-400 px-4 py-1.5 rounded-full bg-black/70 border border-cyan-500/30 backdrop-blur-xl shadow-xl">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-              <span>PURETECH R&amp;D LABS // VISIONARY CONCEPTS</span>
+          <div className="w-full max-w-[92vw] sm:max-w-4xl mx-auto text-center space-y-4 sm:space-y-6 pointer-events-auto p-5 sm:p-10 rounded-[28px] sm:rounded-[32px] bg-[#070912]/85 backdrop-blur-2xl border border-white/10 shadow-[0_25px_80px_rgba(0,0,0,0.9)]">
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-2">
+              <span className="text-slate-200 font-medium">PURETECH R&amp;D LABS // VISIONARY CONCEPTS</span>
             </div>
 
             <h2 className="text-4xl sm:text-6xl lg:text-8xl font-display font-black text-white tracking-tighter leading-[0.98]">
-              What if?
+              What{' '}
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                if?
+              </span>
             </h2>
 
-            <p className="text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-slate-400 tracking-tight leading-tight max-w-3xl mx-auto">
-              Launching the next generation of Intelligent Experiences.
+            <p className="text-2xl sm:text-4xl lg:text-5xl font-display font-extrabold text-white tracking-tight leading-tight max-w-3xl mx-auto">
+              Launching the next generation of{' '}
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                Intelligent Experiences.
+              </span>
             </p>
 
             <p className="text-sm sm:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-md">
@@ -364,29 +389,29 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
         {/* PHASE 2: "As technology radically changes our world, we help our clients adapt and accelerate..." */}
         <motion.div
           style={{ opacity: phase2Opacity, scale: phase2Scale, y: phase2Y }}
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none"
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 pointer-events-none"
         >
-          <div className="max-w-4xl mx-auto text-center space-y-6 pointer-events-auto p-6 sm:p-12 rounded-[32px] bg-[#070912]/85 backdrop-blur-2xl border border-white/15 shadow-[0_30px_100px_rgba(0,0,0,0.95)]">
+          <div className="w-full max-w-[92vw] sm:max-w-4xl mx-auto text-center space-y-5 sm:space-y-6 pointer-events-auto p-5 sm:p-12 rounded-[28px] sm:rounded-[32px] bg-[#070912]/85 backdrop-blur-2xl border border-white/15 shadow-[0_30px_100px_rgba(0,0,0,0.95)]">
             <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono-tech uppercase tracking-[0.2em] text-emerald-400 px-4 py-1.5 rounded-full bg-black/70 border border-emerald-500/30 backdrop-blur-xl shadow-xl">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>ADAPT &amp; ACCELERATE // VISION 2026</span>
             </div>
 
-            <h3 className="text-2xl sm:text-4xl lg:text-5xl font-display font-black text-white tracking-tight leading-[1.15] max-w-3xl mx-auto">
+            <h3 className="text-xl sm:text-4xl lg:text-5xl font-display font-black text-white tracking-tight leading-[1.15] max-w-3xl mx-auto">
               As technology radically changes our world, we help our clients adapt and accelerate—transforming their platforms, systems, and intelligence to lead.
             </h3>
 
             {/* Futuristic Telemetry Micro-Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <span className="px-3.5 py-1.5 rounded-full bg-black/60 border border-white/15 text-xs font-mono-tech text-cyan-300 backdrop-blur-md flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 pt-2">
+              <span className="px-3 py-1.5 rounded-full bg-black/60 border border-white/15 text-[11px] sm:text-xs font-mono-tech text-cyan-300 backdrop-blur-md flex items-center gap-1.5">
                 <Cpu className="w-3.5 h-3.5 text-cyan-400" />
                 <span>Autonomous Multi-Agent Swarms</span>
               </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-black/60 border border-white/15 text-xs font-mono-tech text-indigo-300 backdrop-blur-md flex items-center gap-1.5">
+              <span className="px-3 py-1.5 rounded-full bg-black/60 border border-white/15 text-[11px] sm:text-xs font-mono-tech text-indigo-300 backdrop-blur-md flex items-center gap-1.5">
                 <Zap className="w-3.5 h-3.5 text-indigo-400" />
                 <span>Sub-8ms Spatial Runtimes</span>
               </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-black/60 border border-white/15 text-xs font-mono-tech text-emerald-300 backdrop-blur-md flex items-center gap-1.5">
+              <span className="px-3 py-1.5 rounded-full bg-black/60 border border-white/15 text-[11px] sm:text-xs font-mono-tech text-emerald-300 backdrop-blur-md flex items-center gap-1.5">
                 <Shield className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Zero-Defect Reliability</span>
               </span>
@@ -397,27 +422,27 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
         {/* PHASE 3: INTERACTIVE R&D CONCEPT PROTOTYPES SPOTLIGHT */}
         <motion.div
           style={{ opacity: phase3Opacity, scale: phase3Scale, y: phase3Y }}
-          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pointer-events-none"
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center px-3 sm:px-6 lg:px-8 pointer-events-none"
         >
-          <div className="w-full max-w-5xl mx-auto pointer-events-auto">
+          <div className="w-full max-w-[92vw] sm:max-w-5xl mx-auto pointer-events-auto">
             {/* Header & Concept Tabs */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
               <div>
-                <span className="text-xs font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold mb-1">
+                <span className="text-[11px] sm:text-xs font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold mb-1">
                   PROTOTYPE SPOTLIGHT // ALPHA-09
                 </span>
-                <h4 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+                <h4 className="text-xl sm:text-3xl font-display font-black text-white tracking-tight">
                   Visionary R&amp;D Blueprints
                 </h4>
               </div>
 
               {/* Concept Tabs */}
-              <div className="flex items-center gap-2 p-1.5 rounded-full bg-black/70 border border-white/15 backdrop-blur-xl">
+              <div className="flex items-center gap-2 p-1.5 rounded-full bg-black/70 border border-white/15 backdrop-blur-xl overflow-x-auto max-w-full">
                 {WHAT_IF_CONCEPTS.map((concept, idx) => (
                   <button
                     key={concept.id}
                     onClick={() => setActiveConcept(concept)}
-                    className={`px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider transition-all cursor-pointer ${
+                    className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-mono-tech uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
                       activeConcept.id === concept.id
                         ? 'bg-white text-slate-950 font-bold shadow-lg'
                         : 'text-slate-400 hover:text-white'
@@ -430,7 +455,7 @@ export const WhatIfSection: React.FC<WhatIfProps> = ({ onPartnerOnConcept }) => 
             </div>
 
             {/* Spotlight Concept Card */}
-            <div className="rounded-3xl border border-white/20 bg-slate-950/70 backdrop-blur-2xl p-6 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)]">
+            <div className="rounded-3xl border border-white/20 bg-slate-950/80 backdrop-blur-2xl p-5 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeConcept.id}

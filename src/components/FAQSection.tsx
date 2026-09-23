@@ -95,16 +95,13 @@ export const FAQSection: React.FC = () => {
         {/* ========================================================================= */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
           <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.25em] text-[#f6891f]">
-              <span className="text-white/40 font-light">{"{"}</span>
-              <span className="font-bold text-[#f6891f]">09</span>
-              <span className="text-white/40 font-light">{"}"}</span>
-              <span className="text-slate-300">FREQUENTLY ASKED QUESTIONS // ARCHITECTURAL CLARITY</span>
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-1">
+              <span className="text-slate-200 font-medium">FREQUENTLY ASKED QUESTIONS // ARCHITECTURAL CLARITY</span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-[1.08]">
               Answers to{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
                 Common Engineering
               </span>{' '}
               Questions.

@@ -9,7 +9,7 @@ export const ClientsMarquee: React.FC = () => {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="py-12 sm:py-16 bg-[#07080c]/80 backdrop-blur-md border-y border-white/[0.06] overflow-hidden relative z-10"
+      className="py-12 sm:py-16 bg-[#07080c]/80 backdrop-blur-md border-y border-white/[0.06] overflow-hidden relative z-10 w-full max-w-full"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-center">
         <p className="text-xs uppercase font-mono-tech tracking-[0.2em] text-slate-400">
@@ -17,7 +17,7 @@ export const ClientsMarquee: React.FC = () => {
         </p>
       </div>
 
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full max-w-full overflow-hidden">
         {/* Subtle edge fades */}
         <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#07080c] to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#07080c] to-transparent z-10 pointer-events-none" />

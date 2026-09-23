@@ -20,7 +20,7 @@ const SCENES: Scene[] = [
     section: 'hero',
     videoUrl: '/videos/bg-web-platforms.mp4',
     author: 'PureTech Platform Studio',
-    poster: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=2000&q=80'
+    poster: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80'
   },
   {
     id: 'scene-work',
@@ -29,7 +29,7 @@ const SCENES: Scene[] = [
     section: 'work',
     videoUrl: '/videos/fantasy-mobile-app.mp4',
     author: 'PureTech Mobile Studio',
-    poster: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=2000&q=80'
+    poster: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=2000&q=80'
   },
   {
     id: 'scene-capabilities',
@@ -38,7 +38,7 @@ const SCENES: Scene[] = [
     section: 'capabilities',
     videoUrl: '/videos/fantasy-software-build.mp4',
     author: 'PureTech Engineering Lab',
-    poster: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=2000&q=80'
+    poster: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80'
   },
   {
     id: 'scene-what-if',
@@ -47,7 +47,7 @@ const SCENES: Scene[] = [
     section: 'what-if',
     videoUrl: '/videos/fantasy-web-salesforce.mp4',
     author: 'PureTech Enterprise Labs',
-    poster: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=2000&q=80'
+    poster: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2000&q=80'
   },
   {
     id: 'scene-contact',
@@ -56,7 +56,7 @@ const SCENES: Scene[] = [
     section: 'contact',
     videoUrl: '/videos/fantasy-master-sizzle.mp4',
     author: 'PureTech Innovations Atelier',
-    poster: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=2000&q=80'
+    poster: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80'
   }
 ];
 
@@ -159,7 +159,8 @@ export const ScrollVideoBackground: React.FC = () => {
                 duration: 1.4,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full bg-[#05070f] bg-cover bg-center"
+              style={{ backgroundImage: `url(${scene.poster})` }}
             >
               <video
                 ref={(el) => {

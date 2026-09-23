@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ShieldCheck, MapPin, Lock, Cpu, Globe, Terminal, LayoutGrid, Award, CheckCircle2, ChevronRight, Users, Eye, Sliders, Scale } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { COMPANY_FACTS, MANIFESTO_PILLARS } from '../data/content';
-import { FoundationalPillarsSection } from './FoundationalPillarsSection';
 import { fadeInUp, fadeInScale, staggerContainer } from './MotionWrappers';
 
 const MANIFESTO_ICONS: Record<string, React.ReactNode> = {
@@ -17,7 +16,7 @@ export const AboutSection: React.FC = () => {
   const activeManifesto = MANIFESTO_PILLARS.find(m => m.id === activeManifestoId) || MANIFESTO_PILLARS[0];
 
   return (
-    <section id="about" className="pt-20 sm:pt-32 relative">
+    <section id="about" className="pt-20 sm:pt-32 pb-32 sm:pb-44 lg:pb-52 relative">
       {/* TOP GRID: THE PURETECH PRINCIPLE · ALPHARETTA HQ SPOTLIGHT */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 mb-4 sm:mb-6 border-b border-white/[0.08]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -34,13 +33,15 @@ export const AboutSection: React.FC = () => {
             }}
             className="lg:col-span-7 space-y-6"
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f6891f]/10 border border-[#f6891f]/30 text-xs font-mono-tech uppercase tracking-[0.2em] text-[#f6891f] backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#f6891f] animate-pulse" />
-              <span>THE PURETECH PRINCIPLE · HOME 2.0</span>
+            <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-3">
+              <span className="text-slate-200 font-medium">THE PURETECH PRINCIPLE // ABOUT US</span>
             </motion.div>
             
             <motion.h2 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-[1.08] drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)]">
-              Technology that moves your business forward.
+              Technology that moves{' '}
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                your business forward.
+              </span>
             </motion.h2>
             
             <motion.p variants={fadeInUp} className="text-base sm:text-lg text-slate-200 font-light leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
@@ -104,7 +105,10 @@ export const AboutSection: React.FC = () => {
               </div>
 
               {/* Video Showcase inside Device */}
-              <div className="relative aspect-[16/11] sm:aspect-[4/3] overflow-hidden">
+              <div 
+                className="relative aspect-[16/11] sm:aspect-[4/3] overflow-hidden bg-cover bg-center"
+                style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80)' }}
+              >
                 <video
                   ref={(el) => {
                     if (el) {
@@ -123,6 +127,7 @@ export const AboutSection: React.FC = () => {
                   muted
                   playsInline
                   preload="metadata"
+                  poster="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80"
                   className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.12]"
                 >
                   <source src="/videos/fantasy-software-build.mp4" type="video/mp4" />
@@ -155,12 +160,7 @@ export const AboutSection: React.FC = () => {
         </div>
       </div>
 
-      {/* ======================================================== */}
-      {/* FOUNDATIONAL PILLARS (Nextnox "Work Process" Scrollytelling) */}
-      {/* ======================================================== */}
-      <FoundationalPillarsSection />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 mt-16 sm:mt-24">
 
         {/* ======================================================== */}
         {/* DEVELOPMENT PRACTICES MANIFESTO (Fantasy.co Inner Page Style) */}
@@ -335,7 +335,7 @@ export const AboutSection: React.FC = () => {
               transition: { staggerChildren: 0.1 }
             }
           }}
-          className="p-6 sm:p-8 rounded-3xl bg-[#0e1017]/95 border border-white/10 backdrop-blur-md"
+          className="p-7 sm:p-10 lg:p-12 rounded-[32px] bg-[#0c0e17]/95 border border-white/15 backdrop-blur-xl shadow-[0_25px_80px_rgba(0,0,0,0.8)]"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-white/10 gap-4">
             <div>
@@ -352,20 +352,21 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 pb-2">
             {COMPANY_FACTS.deliveryHubs.map((hub, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeInScale}
-                className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.04] space-y-1"
+                className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-cyan-400/40 hover:bg-white/[0.05] transition-all space-y-1.5"
               >
-                <div className="text-xs font-mono-tech text-slate-400 uppercase">
+                <div className="text-xs font-mono-tech text-slate-400 uppercase tracking-wider">
                   {hub.label}
                 </div>
-                <div className="text-lg font-display font-bold text-white">
+                <div className="text-lg sm:text-xl font-display font-bold text-white">
                   {hub.city}
                 </div>
-                <div className="text-xs font-mono-tech text-cyan-400 pt-1">
+                <div className="text-xs font-mono-tech text-cyan-400 font-semibold pt-1 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                   Active Client Sprints
                 </div>
               </motion.div>
@@ -373,6 +374,9 @@ export const AboutSection: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Seamless ambient fade into Team Section */}
+      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#06080f] to-transparent pointer-events-none" />
     </section>
   );
 };

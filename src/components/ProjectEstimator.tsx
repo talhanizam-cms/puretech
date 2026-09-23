@@ -88,7 +88,7 @@ export const ProjectEstimator: React.FC<EstimatorProps> = ({ onSubmitEstimate })
   };
 
   return (
-    <section id="estimator" className="py-20 sm:py-32 relative bg-[#070913] overflow-hidden">
+    <section id="estimator" className="py-20 sm:py-32 relative bg-[#070913] overflow-hidden w-full max-w-full">
       {/* Ambient background glow in PureTech orange & deep indigo */}
       <div className="absolute top-1/4 -left-48 w-96 h-96 bg-[#f6891f]/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none" />
@@ -108,14 +108,14 @@ export const ProjectEstimator: React.FC<EstimatorProps> = ({ onSubmitEstimate })
           }}
           className="max-w-3xl mb-12 sm:mb-16"
         >
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.2em] text-[#f6891f] mb-3">
-            <span className="text-white/40 font-light">{"{"}</span>
-            <span className="font-bold text-[#f6891f]">07</span>
-            <span className="text-white/40 font-light">{"}"}</span>
-            <span>INTERACTIVE SCOPE & VELOCITY CALCULATOR</span>
+          <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-3">
+            <span className="text-slate-200 font-medium">SCOPE &amp; VELOCITY CALCULATOR</span>
           </motion.div>
           <motion.h2 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-tight mb-4">
-            Configure your technical blueprint.
+            Configure your{' '}
+            <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+              Technical Blueprint.
+            </span>
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
             Get instantaneous clarity on engineering sprints, squad composition, and architectural frameworks tailored to your business objectives.
@@ -291,7 +291,7 @@ export const ProjectEstimator: React.FC<EstimatorProps> = ({ onSubmitEstimate })
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-5 bg-gradient-to-b from-[#111628]/95 to-[#0b0e1b]/95 border border-white/15 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl backdrop-blur-xl sticky top-28"
+            className="lg:col-span-5 bg-gradient-to-b from-[#111628]/95 to-[#0b0e1b]/95 border border-white/15 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl backdrop-blur-xl lg:sticky lg:top-28"
           >
             <div className="border-b border-white/[0.08] pb-4 flex items-center justify-between">
               <div>

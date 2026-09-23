@@ -7,7 +7,8 @@ import {
   ShieldCheck, 
   Terminal, 
   CheckCircle2, 
-  ArrowRight
+  ArrowRight,
+  ArrowUpRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CAPABILITIES } from '../data/content';
@@ -32,6 +33,17 @@ const CAPABILITY_VIDEOS: Record<string, string> = {
   'digital-marketing': '/videos/fantasy-master-sizzle.mp4',
   'ui-ux-design': '/videos/bg-web-platforms.mp4',
   'quality-assurance': '/videos/fantasy-ai-eliza.mp4',
+};
+
+// High-fidelity fallback posters relevant to software, web, mobile, and design
+const CAPABILITY_POSTERS: Record<string, string> = {
+  'mobile-app-development': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=2000&q=80',
+  'custom-website-development': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=80',
+  'corporate-branding-engineering': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=2000&q=80',
+  'web-desktop-development': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80',
+  'digital-marketing': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80',
+  'ui-ux-design': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=2000&q=80',
+  'quality-assurance': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=2000&q=80',
 };
 
 interface CapabilitiesProps {
@@ -98,12 +110,14 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
         {CAPABILITIES.map((cap, idx) => {
           const isActive = activeIndex === idx;
           const vidSrc = CAPABILITY_VIDEOS[cap.id] || '/videos/capabilities-bg.mp4';
+          const posterSrc = CAPABILITY_POSTERS[cap.id] || 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80';
           return (
             <div
               key={cap.id}
-              className={`absolute inset-0 w-full h-full transition-opacity duration-500 ease-out ${
+              className={`absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-500 ease-out ${
                 isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
               }`}
+              style={{ backgroundImage: `url(${posterSrc})` }}
             >
               <video
                 ref={(el) => {
@@ -125,6 +139,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                   if (isActive) v.play().catch(() => {});
                 }}
                 src={vidSrc}
+                poster={posterSrc}
                 autoPlay={isActive}
                 loop
                 muted
@@ -172,13 +187,14 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
             }}
             className="max-w-3xl mb-16 sm:mb-24"
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.2em] text-cyan-400 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              SERVICES &amp; DISCIPLINES
+            <motion.div variants={fadeInUp} className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-3">
+              <span className="text-slate-200 font-medium">SERVICES &amp; DISCIPLINES // ARCHITECTURE</span>
             </motion.div>
             <motion.h2 variants={fadeInUp} className="text-3xl sm:text-5xl lg:text-7xl font-display font-black text-white tracking-tighter leading-tight mb-4">
               Lead by design. <br />
-              <span className="text-slate-400">Engineered to scale.</span>
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white">
+                Engineered to scale.
+              </span>
             </motion.h2>
             <motion.p variants={fadeInUp} className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
               From autonomous AI systems and flagship mobile apps to enterprise web architectures and mission-critical cloud infrastructure.
@@ -186,12 +202,134 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
           </motion.div>
 
           {/* ========================================================================= */}
+          {/* MOBILE DISCIPLINE INTERACTIVE EXPERIENCE (< lg)                           */}
+          {/* ========================================================================= */}
+          <div className="lg:hidden space-y-6 pt-4 pb-12">
+            {/* Horizontal Scrollable Tabs */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4">
+              {CAPABILITIES.map((cap, idx) => {
+                const isActive = activeIndex === idx;
+                return (
+                  <button
+                    key={cap.id}
+                    onClick={() => setActiveIndex(idx)}
+                    className={`shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-full border text-xs font-mono-tech transition-all duration-300 ${
+                      isActive
+                        ? 'bg-cyan-500/15 border-cyan-400 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.3)]'
+                        : 'bg-black/40 border-white/10 text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <span className="font-bold">{cap.number}</span>
+                    <span className="font-medium whitespace-nowrap">{cap.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Mobile Showcase Card */}
+            <div className="relative rounded-[24px] overflow-hidden border border-white/20 bg-slate-950/70 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl p-5 sm:p-7">
+              {/* Top Bar with Icon & Counter */}
+              <div className="flex items-center justify-between border-b border-white/15 pb-4 gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2.5 rounded-xl bg-black/40 border border-white/20 backdrop-blur-md shadow-lg shrink-0">
+                    {ICON_MAP[activeCapability.iconName] || <Cpu className="w-5 h-5 text-cyan-400" />}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold">
+                      DISCIPLINE {activeCapability.number} // 07
+                    </span>
+                    <h4 className="text-lg font-display font-black text-white tracking-tight leading-tight">
+                      {activeCapability.title}
+                    </h4>
+                  </div>
+                </div>
+
+                <span className="shrink-0 whitespace-nowrap inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 border border-white/15 text-[11px] font-mono-tech text-slate-200 backdrop-blur-md">
+                  {activeCapability.technologies.length} Tech
+                </span>
+              </div>
+
+              {/* Tagline & Overview */}
+              <div className="space-y-1.5 py-4">
+                <p className="text-sm font-medium text-white leading-snug">
+                  {activeCapability.tagline}
+                </p>
+                <p className="text-xs text-slate-300 font-light leading-relaxed line-clamp-3">
+                  {activeCapability.description}
+                </p>
+              </div>
+
+              {/* Scopes */}
+              <div className="space-y-2 pb-4">
+                <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-300/90 block font-semibold">
+                  SPECIALIZED SCOPES
+                </span>
+                <div className="grid grid-cols-1 gap-1.5">
+                  {(activeCapability.subServices || []).slice(0, 4).map((sub, sIdx) => (
+                    <div
+                      key={sIdx}
+                      className="flex items-start gap-2 text-xs text-slate-200 bg-black/35 p-2 rounded-lg border border-white/10"
+                    >
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                      <span className="leading-tight font-medium">{sub}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Technologies */}
+              <div className="space-y-2 pb-4">
+                <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-300/90 block font-semibold">
+                  FRAMEWORKS &amp; RUNTIMES
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {activeCapability.technologies.map((tech, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="px-2 py-0.5 rounded-md bg-black/35 border border-white/10 text-[11px] font-mono-tech text-slate-300 whitespace-nowrap"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Prev / Next & CTA */}
+              <div className="pt-4 border-t border-white/10 space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono-tech text-slate-400">
+                  <button
+                    onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : CAPABILITIES.length - 1))}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:text-white"
+                  >
+                    ← Prev
+                  </button>
+                  <span>{activeCapability.number} / 07</span>
+                  <button
+                    onClick={() => setActiveIndex((prev) => (prev < CAPABILITIES.length - 1 ? prev + 1 : 0))}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:text-white"
+                  >
+                    Next →
+                  </button>
+                </div>
+
+                <button
+                  onClick={() => onStartProjectWithCapability(activeCapability.title)}
+                  className="w-full py-3 rounded-full bg-white hover:bg-slate-200 text-slate-950 font-display font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-all"
+                >
+                  <span>ENGAGE THIS DISCIPLINE</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* ========================================================================= */}
           {/* FANTASY.CO SCROLLYTELLING SERVICES (LEFT TITLES SCROLL, RIGHT STICKS)      */}
           {/* ========================================================================= */}
-          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="hidden lg:grid relative grid-cols-12 gap-12 lg:gap-16 items-start">
             
             {/* LEFT COLUMN: SCROLLING SERVICE TITLES (FANTASY.CO STYLE) */}
-            <div className="lg:col-span-6 space-y-40 sm:space-y-56 py-12 sm:py-20">
+            <div className="lg:col-span-6 space-y-16 sm:space-y-28 lg:space-y-56 py-6 sm:py-12 lg:py-20">
               {CAPABILITIES.map((cap, idx) => {
                 const isActive = activeIndex === idx;
                 return (
@@ -274,12 +412,12 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                     className="space-y-6 sm:space-y-7"
                   >
                     {/* Top Bar with Icon & Counter */}
-                    <div className="flex items-center justify-between border-b border-white/15 pb-5">
-                      <div className="flex items-center gap-3.5">
-                        <div className="p-3 rounded-2xl bg-black/40 border border-white/20 backdrop-blur-md shadow-lg">
+                    <div className="flex items-center justify-between border-b border-white/15 pb-5 gap-3 sm:gap-4">
+                      <div className="flex items-center gap-3.5 min-w-0">
+                        <div className="p-3 rounded-2xl bg-black/40 border border-white/20 backdrop-blur-md shadow-lg shrink-0">
                           {ICON_MAP[activeCapability.iconName] || <Cpu className="w-6 h-6 text-cyan-400" />}
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <span className="text-[11px] font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold">
                             DISCIPLINE {activeCapability.number} // 07
                           </span>
@@ -289,7 +427,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                         </div>
                       </div>
 
-                      <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-black/40 border border-white/15 text-xs font-mono-tech text-slate-200 backdrop-blur-md">
+                      <span className="shrink-0 whitespace-nowrap inline-flex items-center px-3 py-1 rounded-full bg-black/40 border border-white/15 text-xs font-mono-tech text-slate-200 backdrop-blur-md">
                         {activeCapability.technologies.length} Technologies
                       </span>
                     </div>
@@ -331,7 +469,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                         {activeCapability.technologies.map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-1 rounded-lg bg-black/35 border border-white/10 text-xs font-mono-tech text-slate-200 backdrop-blur-md"
+                            className="px-2.5 py-1 rounded-lg bg-black/35 border border-white/10 text-xs font-mono-tech text-slate-200 backdrop-blur-md whitespace-nowrap"
                           >
                             {tech}
                           </span>

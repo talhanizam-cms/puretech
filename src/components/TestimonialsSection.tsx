@@ -45,7 +45,7 @@ export const TestimonialsSection: React.FC = () => {
   return (
     <section 
       id="testimonials" 
-      className="py-20 sm:py-28 relative overflow-hidden bg-[#060810] select-none"
+      className="py-20 sm:py-28 relative overflow-hidden bg-[#060810] select-none w-full max-w-full"
       onMouseEnter={() => setIsAutoPlay(false)}
       onMouseLeave={() => setIsAutoPlay(true)}
     >
@@ -61,11 +61,8 @@ export const TestimonialsSection: React.FC = () => {
         {/* ========================================================================= */}
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           {/* Nextnox Subtitle Indicator */}
-          <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.25em] text-[#f6891f]">
-            <span className="text-white/40 font-light">{"{"}</span>
-            <span className="font-bold text-[#f6891f]">08</span>
-            <span className="text-white/40 font-light">{"}"}</span>
-            <span className="text-slate-300">OUR TESTIMONIALS</span>
+          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-1">
+            <span className="text-slate-200 font-medium">CLIENT REVIEWS // TESTIMONIALS</span>
           </div>
 
           {/* Nextnox Headline with Italic Serif Accent */}
@@ -85,7 +82,7 @@ export const TestimonialsSection: React.FC = () => {
           {/* Left Navigation Arrow */}
           <button
             onClick={prevTestimonial}
-            className="absolute -left-4 sm:-left-6 lg:-left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 hover:border-[#f6891f] bg-[#0c101c]/90 hover:bg-[#f6891f]/15 text-white hover:text-[#f6891f] flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xl group"
+            className="hidden sm:flex absolute -left-5 lg:-left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 hover:border-[#f6891f] bg-[#0c101c]/90 hover:bg-[#f6891f]/15 text-white hover:text-[#f6891f] items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xl group"
             aria-label="Previous Testimonial"
           >
             <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" />
@@ -94,14 +91,14 @@ export const TestimonialsSection: React.FC = () => {
           {/* Right Navigation Arrow */}
           <button
             onClick={nextTestimonial}
-            className="absolute -right-4 sm:-right-6 lg:-right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 hover:border-[#f6891f] bg-[#0c101c]/90 hover:bg-[#f6891f]/15 text-white hover:text-[#f6891f] flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xl group"
+            className="hidden sm:flex absolute -right-5 lg:-right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-white/20 hover:border-[#f6891f] bg-[#0c101c]/90 hover:bg-[#f6891f]/15 text-white hover:text-[#f6891f] items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xl group"
             aria-label="Next Testimonial"
           >
             <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
           </button>
 
           {/* Card Container (Nextnox nxr-testimonial-item) */}
-          <div className="relative rounded-[32px] sm:rounded-[40px] bg-[#0c101c]/95 border border-white/15 p-8 sm:p-14 lg:p-16 text-center shadow-[0_30px_90px_rgba(0,0,0,0.9)] backdrop-blur-xl overflow-hidden group">
+          <div className="relative rounded-[28px] sm:rounded-[40px] bg-[#0c101c]/95 border border-white/15 p-6 sm:p-14 lg:p-16 text-center shadow-[0_30px_90px_rgba(0,0,0,0.9)] backdrop-blur-xl overflow-hidden group">
             
             {/* Concentric Geometric Orbit Ring (Nextnox tm-circle) */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full border border-dashed border-white/[0.04] pointer-events-none" />
@@ -193,11 +190,29 @@ export const TestimonialsSection: React.FC = () => {
               })}
             </div>
 
-            {/* Slide Count Indicator */}
-            <div className="text-xs font-mono-tech text-slate-400 flex items-center gap-1.5 mt-2">
-              <span className="text-[#f6891f] font-bold">0{activeIndex + 1}</span>
-              <span>/</span>
-              <span>0{TESTIMONIALS.length}</span>
+            {/* Slide Count Indicator & Mobile Navigation Controls */}
+            <div className="flex items-center justify-center gap-4 mt-3">
+              <button
+                onClick={prevTestimonial}
+                className="sm:hidden w-8 h-8 rounded-full border border-white/20 bg-white/[0.05] text-white flex items-center justify-center active:scale-95 cursor-pointer"
+                aria-label="Previous Testimonial"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+
+              <div className="text-xs font-mono-tech text-slate-400 flex items-center gap-1.5">
+                <span className="text-[#f6891f] font-bold">0{activeIndex + 1}</span>
+                <span>/</span>
+                <span>0{TESTIMONIALS.length}</span>
+              </div>
+
+              <button
+                onClick={nextTestimonial}
+                className="sm:hidden w-8 h-8 rounded-full border border-white/20 bg-white/[0.05] text-white flex items-center justify-center active:scale-95 cursor-pointer"
+                aria-label="Next Testimonial"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
@@ -206,12 +221,12 @@ export const TestimonialsSection: React.FC = () => {
         {/* ========================================================================= */}
         {/* 4. NEXTNOX CLIENT LOGOS MARQUEE (nxr-wc-sponsor)                           */}
         {/* ========================================================================= */}
-        <div className="pt-8 border-t border-white/10 space-y-4">
+        <div className="pt-8 border-t border-white/10 space-y-4 w-full max-w-full overflow-hidden">
           <div className="text-center text-xs font-mono-tech uppercase tracking-[0.25em] text-slate-400">
             TRUSTED BY VISIONARY FOUNDERS & ENTERPRISE TEAMS GLOBALLY
           </div>
 
-          <div className="relative overflow-hidden py-2">
+          <div className="relative overflow-hidden py-2 w-full max-w-full">
             <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#060810] to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#060810] to-transparent z-10 pointer-events-none" />
 

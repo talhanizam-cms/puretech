@@ -194,17 +194,14 @@ export const TeamSection: React.FC = () => {
             {/* Left Typographic Lockup */}
             <div className="space-y-2">
               {/* Nextnox Subtitle Indicator */}
-              <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.25em] text-cyan-400">
-                <span className="text-white/40 font-light">{"{"}</span>
-                <span className="font-bold text-[#f6891f]">05</span>
-                <span className="text-white/40 font-light">{"}"}</span>
-                <span className="text-slate-300">TEAM MEMBERS // LEADERSHIP POD</span>
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md text-xs font-mono-tech uppercase tracking-[0.2em] shadow-sm mb-1">
+                <span className="text-slate-200 font-medium">LEADERSHIP POD // EXPERT ENGINEERING</span>
               </div>
 
               {/* Nextnox Iconic Editorial Title with Embedded Avatars */}
               <div className="font-display uppercase tracking-tight text-white select-none">
                 {/* Line 1 */}
-                <div className="text-2xl sm:text-4xl lg:text-5xl font-black flex items-center gap-2.5 sm:gap-3">
+                <div className="text-xl sm:text-4xl lg:text-5xl font-black flex items-center gap-2 sm:gap-3">
                   <span>OUR</span>
                   <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-[#f6891f] via-amber-200 to-white normal-case">
                     creative
@@ -213,7 +210,7 @@ export const TeamSection: React.FC = () => {
                 </div>
 
                 {/* Line 2 with Inline Bubble Avatars Stack */}
-                <div className="text-2xl sm:text-4xl lg:text-5xl font-black flex items-center gap-2.5 sm:gap-3 mt-1">
+                <div className="text-xl sm:text-4xl lg:text-5xl font-black flex items-center gap-2 sm:gap-3 mt-1">
                   {/* Avatar Stack like Nextnox .img-wrapper */}
                   <div className="hidden sm:inline-flex items-center -space-x-3 pr-2">
                     {TEAM_MEMBERS.slice(0, 3).map((m, idx) => (
@@ -261,7 +258,7 @@ export const TeamSection: React.FC = () => {
         >
           <motion.div 
             style={{ x: smoothX }}
-            className="flex items-center gap-6 sm:gap-8 px-4 sm:px-12 w-max will-change-transform"
+            className="flex items-center gap-5 sm:gap-8 px-4 sm:px-12 w-max will-change-transform"
           >
             {TEAM_MEMBERS.map((member, idx) => {
               const formattedIdx = `0${idx + 1}`;
@@ -272,7 +269,7 @@ export const TeamSection: React.FC = () => {
                   key={member.id}
                   onMouseEnter={() => setActiveCard(member.id)}
                   onMouseLeave={() => setActiveCard(null)}
-                  className="group relative w-[280px] sm:w-[330px] lg:w-[360px] rounded-[26px] p-4 sm:p-5 bg-[#0c101c]/95 border border-white/15 backdrop-blur-md transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_25px_80px_rgba(0,0,0,0.9)] flex flex-col justify-between cursor-pointer overflow-hidden"
+                  className="group relative w-[260px] sm:w-[330px] lg:w-[360px] rounded-[24px] sm:rounded-[26px] p-3.5 sm:p-5 bg-[#0c101c]/95 border border-white/15 backdrop-blur-md transition-all duration-500 hover:border-cyan-400/50 hover:shadow-[0_25px_80px_rgba(0,0,0,0.9)] flex flex-col justify-between cursor-pointer overflow-hidden"
                 >
                   {/* Nextnox Abstract Glowing Backdrop Shape */}
                   <div 
@@ -303,7 +300,7 @@ export const TeamSection: React.FC = () => {
                   </div>
 
                   {/* Member Editorial Portrait (Vibrant & High Visibility with Sleek Height) */}
-                  <div className="relative z-10 w-full h-56 sm:h-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/15 mb-3 group-hover:border-cyan-400/40 transition-all duration-500">
+                  <div className="relative z-10 w-full h-48 sm:h-64 rounded-2xl overflow-hidden bg-slate-900 border border-white/15 mb-3 group-hover:border-cyan-400/40 transition-all duration-500">
                     <img 
                       src={member.image} 
                       alt={member.name}

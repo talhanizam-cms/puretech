@@ -24,10 +24,26 @@ export const CustomCursor: React.FC = () => {
   const activeMagneticTargetRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    // Detect touch device to avoid rendering on mobile / tablet
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouchDevice(true);
-      return;
+    // Detect mobile or touch device to avoid rendering cursor on mobile / tablet
+    const checkIsTouchOrMobile = () => {
+      const isMobileTouch = (
+        typeof window !== 'undefined' && (
+          window.innerWidth < 1024 ||
+          'ontouchstart' in window ||
+          navigator.maxTouchPoints > 0 ||
+          window.matchMedia('(pointer: coarse)').matches
+        )
+      );
+      setIsTouchDevice(isMobileTouch);
+      return isMobileTouch;
+    };
+
+    if (checkIsTouchOrMobile()) {
+      const handleResize = () => {
+        checkIsTouchOrMobile();
+      };
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
     }
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -145,7 +161,7 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-50 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-50 overflow-hidden hidden lg:block"
       style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 0.25s ease' }}
     >
       {/* Outer Magnetic Follower Ring */}
