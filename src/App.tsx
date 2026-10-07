@@ -87,14 +87,14 @@ export default function App() {
 
         <ClientsMarquee />
 
-        <WorkSection
-          onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
-        />
-
         <CapabilitiesSection
           onStartProjectWithCapability={(capName) =>
             handleOpenContactWithSubject(`Discipline Focus: ${capName}`)
           }
+        />
+
+        <WorkSection
+          onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
         />
 
         <WhatIfSection
@@ -103,13 +103,7 @@ export default function App() {
           }
         />
 
-        <ProjectEstimator
-          onSubmitEstimate={(summary) =>
-            handleOpenContactWithSubject(`Project Blueprint Estimate: ${summary}`)
-          }
-        />
-
-        {/* Foundational Pillars (Nextnox Scrollytelling Methodology) */}
+        {/* Foundational Pillars (Nextnox Scrollytelling Methodology // PROCESS) */}
         <FoundationalPillarsSection />
 
         <AboutSection />
@@ -117,6 +111,13 @@ export default function App() {
         <TeamSection />
 
         <TestimonialsSection />
+
+        {/* Project Cost Blueprint & Estimator */}
+        <ProjectEstimator
+          onSubmitEstimate={(summary) =>
+            handleOpenContactWithSubject(`Project Blueprint Estimate: ${summary}`)
+          }
+        />
 
         <FAQSection />
 

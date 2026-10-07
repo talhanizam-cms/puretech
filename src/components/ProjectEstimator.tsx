@@ -8,9 +8,9 @@ interface EstimatorProps {
 }
 
 export const ProjectEstimator: React.FC<EstimatorProps> = ({ onSubmitEstimate }) => {
-  const [platform, setPlatform] = useState<'mobile' | 'web' | 'ai' | 'enterprise'>('ai');
+  const [platform, setPlatform] = useState<'ui-ux' | 'web' | 'mobile' | 'ai' | 'growth'>('web');
   const [scope, setScope] = useState<'mvp' | 'growth' | 'enterprise'>('growth');
-  const [aiTier, setAiTier] = useState<'none' | 'rag' | 'edge-agents'>('edge-agents');
+  const [aiTier, setAiTier] = useState<'none' | 'rag' | 'edge-agents'>('rag');
   const [qaLevel, setQaLevel] = useState<'standard' | 'rigorous'>('rigorous');
   const [velocity, setVelocity] = useState<'expedited' | 'standard'>('expedited');
 
@@ -24,27 +24,31 @@ export const ProjectEstimator: React.FC<EstimatorProps> = ({ onSubmitEstimate })
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState('');
 
-  // Dynamic calculations
-  let estimatedWeeks = 12;
+  // Dynamic calculations based on 5 Core Capabilities
+  let estimatedWeeks = 10;
   let squadSize = 4;
-  let keyStack = ['React', 'Node.js', 'PostgreSQL'];
+  let keyStack = ['React 19', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'];
 
-  if (platform === 'mobile') {
-    estimatedWeeks = scope === 'mvp' ? 8 : scope === 'growth' ? 14 : 22;
-    squadSize = scope === 'mvp' ? 3 : 5;
-    keyStack = ['SwiftUI', 'Kotlin Compose', 'Flutter', 'Fastlane', 'Appium'];
+  if (platform === 'ui-ux') {
+    estimatedWeeks = scope === 'mvp' ? 4 : scope === 'growth' ? 8 : 14;
+    squadSize = scope === 'mvp' ? 2 : 4;
+    keyStack = ['Figma', 'Design Systems', 'Spline 3D', 'After Effects', 'Tailwind CSS', 'Storybook'];
   } else if (platform === 'web') {
     estimatedWeeks = scope === 'mvp' ? 6 : scope === 'growth' ? 12 : 20;
-    squadSize = scope === 'mvp' ? 3 : 4;
-    keyStack = ['React 19', 'Next.js', 'TypeScript', 'Node.js', 'AWS EKS'];
+    squadSize = scope === 'mvp' ? 3 : 5;
+    keyStack = ['React 19', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS EKS'];
+  } else if (platform === 'mobile') {
+    estimatedWeeks = scope === 'mvp' ? 8 : scope === 'growth' ? 14 : 22;
+    squadSize = scope === 'mvp' ? 3 : 5;
+    keyStack = ['SwiftUI', 'Kotlin Compose', 'Flutter', 'React Native', 'Fastlane', 'Appium'];
   } else if (platform === 'ai') {
-    estimatedWeeks = scope === 'mvp' ? 10 : scope === 'growth' ? 16 : 24;
+    estimatedWeeks = scope === 'mvp' ? 8 : scope === 'growth' ? 16 : 24;
     squadSize = scope === 'mvp' ? 4 : 6;
-    keyStack = ['PyTorch', 'Gemini API', 'Pinecone', 'Python', 'FastAPI', 'Docker'];
-  } else if (platform === 'enterprise') {
-    estimatedWeeks = scope === 'mvp' ? 14 : scope === 'growth' ? 22 : 32;
-    squadSize = scope === 'mvp' ? 5 : 8;
-    keyStack = ['Java Spring', 'React', 'Kafka', 'PostgreSQL', 'Kubernetes', 'Selenium'];
+    keyStack = ['Python', 'FastAPI', 'Gemini API', 'LangChain', 'Pinecone', 'Make.com', 'Docker'];
+  } else if (platform === 'growth') {
+    estimatedWeeks = scope === 'mvp' ? 4 : scope === 'growth' ? 8 : 16;
+    squadSize = scope === 'mvp' ? 2 : 4;
+    keyStack = ['Meta Ads Manager', 'Google Ads', 'GA4 / GTM', 'Ahrefs', 'Klaviyo', 'Looker Studio'];
   }
 
   if (aiTier === 'edge-agents') estimatedWeeks += 2;
@@ -134,20 +138,21 @@ export const ProjectEstimator: React.FC<EstimatorProps> = ({ onSubmitEstimate })
             {/* 1. Platform Target */}
             <div className="space-y-3">
               <label className="text-xs font-mono-tech uppercase tracking-widest text-[#f6891f] font-bold block">
-                1. Target Platform & Surface
+                1. Target Discipline &amp; Service Track
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                 {[
-                  { id: 'ai', label: 'AI & Agents' },
-                  { id: 'mobile', label: 'Mobile App' },
+                  { id: 'ui-ux', label: 'UI/UX Design' },
                   { id: 'web', label: 'Web Platform' },
-                  { id: 'enterprise', label: 'Enterprise Core' }
+                  { id: 'mobile', label: 'Mobile App' },
+                  { id: 'ai', label: 'AI & Automation' },
+                  { id: 'growth', label: 'Growth & SEO' }
                 ].map((item) => (
                   <button
                     key={item.id}
                     id={`est-platform-${item.id}`}
                     onClick={() => setPlatform(item.id as any)}
-                    className={`py-3 px-3 rounded-xl text-xs font-mono-tech uppercase tracking-wider text-center border transition-all cursor-pointer ${
+                    className={`py-3 px-2 rounded-xl text-[11px] sm:text-xs font-mono-tech uppercase tracking-wider text-center border transition-all cursor-pointer whitespace-nowrap ${
                       platform === item.id
                         ? 'bg-[#f6891f]/15 border-[#f6891f] text-white font-bold shadow-[0_0_15px_rgba(246,137,31,0.25)]'
                         : 'bg-white/[0.03] border-white/[0.08] text-slate-400 hover:text-white hover:border-white/20'

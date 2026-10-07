@@ -132,6 +132,9 @@ export const ScrollVideoBackground: React.FC = () => {
 
   const activeScene = SCENES[activeSceneIndex];
 
+  // Fade in background video container only after scrolling past main hero banner
+  const containerOpacity = useTransform(smoothProgress, [0, 0.07, 0.15], [0, 0.3, 1]);
+
   return (
     <div 
       aria-hidden="true" 
@@ -141,7 +144,8 @@ export const ScrollVideoBackground: React.FC = () => {
       <motion.div
         style={{
           scale: videoScale,
-          y: videoY
+          y: videoY,
+          opacity: containerOpacity
         }}
         className="absolute inset-0 w-full h-full z-0 will-change-transform"
       >
@@ -201,9 +205,8 @@ export const ScrollVideoBackground: React.FC = () => {
         className="absolute inset-0 bg-[#07080c] z-10 pointer-events-none"
       />
 
-      {/* Edge gradient vignettes (Cinematic edge soft blend) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#07080c] via-transparent to-[#07080c]/60 z-10 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#07080c]/50 via-transparent to-[#07080c]/50 z-10 pointer-events-none" />
+      {/* Subtle edge blend */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#07080c]/80 via-transparent to-[#07080c]/80 z-10 pointer-events-none" />
     </div>
   );
 };

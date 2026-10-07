@@ -1,4 +1,4 @@
-export type ProjectCategory = 'all' | 'ai' | 'mobile' | 'web' | 'enterprise';
+export type ProjectCategory = 'all' | 'ai' | 'mobile' | 'web' | 'enterprise' | 'growth';
 
 export interface CaseStudy {
   id: string;
@@ -10,6 +10,11 @@ export interface CaseStudy {
   heroImage: string;
   videoUrl?: string;
   youtubeId?: string;
+  liveUrl?: string;
+  appStoreUrl?: string;
+  playStoreUrl?: string;
+  tags?: string[];
+  subCategory?: string;
   galleryImages: string[];
   metrics: {
     label: string;

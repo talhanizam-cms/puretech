@@ -26,24 +26,20 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 
 // Video showcases mapped directly to engineering capabilities
 const CAPABILITY_VIDEOS: Record<string, string> = {
-  'mobile-app-development': '/videos/fantasy-mobile-app.mp4',
-  'custom-website-development': '/videos/fantasy-web-salesforce.mp4',
-  'corporate-branding-engineering': '/videos/fantasy-software-build.mp4',
-  'web-desktop-development': '/videos/fantasy-what-is-an-app.mp4',
-  'digital-marketing': '/videos/fantasy-master-sizzle.mp4',
-  'ui-ux-design': '/videos/bg-web-platforms.mp4',
-  'quality-assurance': '/videos/fantasy-ai-eliza.mp4',
+  'ui-ux-brand-design': '/videos/bg-web-platforms.mp4',
+  'web-app-development': '/videos/fantasy-web-salesforce.mp4',
+  'ai-automation': '/videos/fantasy-ai-eliza.mp4',
+  'growth-digital-marketing': '/videos/fantasy-master-sizzle.mp4',
+  'engineering-team-augmentation': '/videos/fantasy-software-build.mp4',
 };
 
 // High-fidelity fallback posters relevant to software, web, mobile, and design
 const CAPABILITY_POSTERS: Record<string, string> = {
-  'mobile-app-development': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=2000&q=80',
-  'custom-website-development': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=80',
-  'corporate-branding-engineering': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=2000&q=80',
-  'web-desktop-development': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80',
-  'digital-marketing': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80',
-  'ui-ux-design': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=2000&q=80',
-  'quality-assurance': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=2000&q=80',
+  'ui-ux-brand-design': 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=2000&q=80',
+  'web-app-development': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2000&q=80',
+  'ai-automation': 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2000&q=80',
+  'growth-digital-marketing': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=2000&q=80',
+  'engineering-team-augmentation': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=2000&q=80',
 };
 
 interface CapabilitiesProps {
@@ -55,6 +51,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeCapability = CAPABILITIES[activeIndex] || CAPABILITIES[0];
+  const totalDisciplines = String(CAPABILITIES.length).padStart(2, '0');
 
   // Fantasy.co Scroll Synchronizer:
   // Detects which discipline title is currently centered on the left side and updates the sticky right showcase
@@ -103,10 +100,9 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
       <div className="absolute bottom-1/4 right-0 w-[550px] h-[550px] bg-indigo-600/5 rounded-full blur-[160px] pointer-events-none -z-10" />
 
       {/* ========================================================================= */}
-      {/* 1. FULL-WIDTH EDGE-TO-EDGE STICKY BACKGROUND VIDEO (FANTASY.CO STYLE)     */}
+      {/* 1. FULL-WIDTH EDGE-TO-EDGE STICKY BACKGROUND VIDEO                        */}
       {/* ========================================================================= */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden pointer-events-none -z-0">
-        {/* Preloaded simultaneous cross-fading background videos (Instant zero-delay switch) */}
         {CAPABILITIES.map((cap, idx) => {
           const isActive = activeIndex === idx;
           const vidSrc = CAPABILITY_VIDEOS[cap.id] || '/videos/capabilities-bg.mp4';
@@ -145,23 +141,22 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                 muted
                 playsInline
                 preload="metadata"
-                className="w-full h-full object-cover filter contrast-[1.05] brightness-[0.68] saturate-[1.1]"
+                className="w-full h-full object-cover filter contrast-[1.05] brightness-[0.72] saturate-[1.1]"
               />
             </div>
           );
         })}
 
-        {/* Full-bleed seamless gradient fades: softened cinema vignettes */}
-        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#06080d] via-[#06080d]/50 to-transparent pointer-events-none z-20" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#06080d] via-[#06080d]/50 to-transparent pointer-events-none z-20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#06080d]/50 via-transparent to-[#06080d]/50 pointer-events-none z-20" />
-        <div className="absolute inset-0 bg-[#06080d]/10 pointer-events-none z-20" />
+        {/* Ambient vignettes */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#06080d] to-transparent pointer-events-none z-20" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#06080d] to-transparent pointer-events-none z-20" />
+        <div className="absolute inset-0 bg-[#06080d]/25 pointer-events-none z-20" />
 
-        {/* Minimalist floating project indicator at bottom right */}
-        <div className="absolute bottom-8 right-8 z-30 pointer-events-auto hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-black/70 backdrop-blur-xl border border-white/10 text-xs font-mono-tech shadow-2xl">
+        {/* Floating indicator */}
+        <div className="absolute bottom-8 right-8 z-30 pointer-events-auto hidden md:flex items-center gap-3 px-4 py-2 rounded-full bg-black/75 backdrop-blur-xl border border-white/10 text-xs font-mono-tech shadow-2xl">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span className="text-white font-bold">
-            0{activeIndex + 1} <span className="text-slate-500">/</span> 0{CAPABILITIES.length}
+            0{activeIndex + 1} <span className="text-slate-500">/</span> {totalDisciplines}
           </span>
           <span className="text-slate-600">|</span>
           <span className="text-cyan-400 font-semibold">{activeCapability.title}</span>
@@ -227,7 +222,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
             </div>
 
             {/* Mobile Showcase Card */}
-            <div className="relative rounded-[24px] overflow-hidden border border-white/20 bg-slate-950/70 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl p-5 sm:p-7">
+            <div className="relative rounded-[24px] overflow-hidden border border-white/20 bg-slate-950/80 shadow-[0_20px_60px_rgba(0,0,0,0.8)] backdrop-blur-xl p-5 sm:p-7">
               {/* Top Bar with Icon & Counter */}
               <div className="flex items-center justify-between border-b border-white/15 pb-4 gap-3">
                 <div className="flex items-center gap-3 min-w-0">
@@ -236,7 +231,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                   </div>
                   <div className="min-w-0">
                     <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold">
-                      DISCIPLINE {activeCapability.number} // 07
+                      DISCIPLINE {activeCapability.number} // {totalDisciplines}
                     </span>
                     <h4 className="text-lg font-display font-black text-white tracking-tight leading-tight">
                       {activeCapability.title}
@@ -303,7 +298,7 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                   >
                     ← Prev
                   </button>
-                  <span>{activeCapability.number} / 07</span>
+                  <span>{activeCapability.number} / {totalDisciplines}</span>
                   <button
                     onClick={() => setActiveIndex((prev) => (prev < CAPABILITIES.length - 1 ? prev + 1 : 0))}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:text-white"
@@ -324,12 +319,12 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
           </div>
 
           {/* ========================================================================= */}
-          {/* FANTASY.CO SCROLLYTELLING SERVICES (LEFT TITLES SCROLL, RIGHT STICKS)      */}
+          {/* SCROLLYTELLING SERVICES (LEFT TITLES SCROLL, RIGHT STICKS)                */}
           {/* ========================================================================= */}
           <div className="hidden lg:grid relative grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* LEFT COLUMN: SCROLLING SERVICE TITLES (FANTASY.CO STYLE) */}
-            <div className="lg:col-span-6 space-y-16 sm:space-y-28 lg:space-y-56 py-6 sm:py-12 lg:py-20">
+            {/* LEFT COLUMN: SCROLLING SERVICE TITLES */}
+            <div className="lg:col-span-6 space-y-16 sm:space-y-28 lg:space-y-48 py-6 sm:py-12 lg:py-16">
               {CAPABILITIES.map((cap, idx) => {
                 const isActive = activeIndex === idx;
                 return (
@@ -353,11 +348,11 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                         {cap.number}
                       </span>
                       <span className="text-xs font-mono-tech uppercase tracking-widest text-slate-500">
-                        DISCIPLINE {cap.number} // 07
+                        DISCIPLINE {cap.number} // {totalDisciplines}
                       </span>
                     </div>
 
-                    {/* Giant Bold Fantasy.co Typography Title */}
+                    {/* Typography Title */}
                     <h3 className={`text-3xl sm:text-5xl lg:text-6xl font-display font-black tracking-tight leading-[1.1] transition-all duration-300 ${
                       isActive
                         ? 'text-white'
@@ -397,31 +392,31 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
               })}
             </div>
 
-            {/* RIGHT COLUMN: STICKY SHOWCASE COCKPIT (PINNED IN VIEWPORT) */}
-            <div className="lg:col-span-6 lg:sticky lg:top-28 lg:self-start">
-              <div className="relative rounded-[32px] overflow-hidden border border-white/20 bg-slate-950/40 shadow-[0_30px_100px_rgba(0,0,0,0.7)] backdrop-blur-xl p-7 sm:p-10">
+            {/* RIGHT COLUMN: STICKY SHOWCASE COCKPIT (WELL-ALIGNED IN VIEWPORT) */}
+            <div className="lg:col-span-6 lg:sticky lg:top-24 lg:self-start pt-2">
+              <div className="relative rounded-[28px] overflow-hidden border border-white/20 bg-slate-950/70 shadow-[0_30px_90px_rgba(0,0,0,0.85)] backdrop-blur-2xl p-6 sm:p-8">
                 
                 {/* Dynamic Content Panel */}
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeCapability.id}
-                    initial={{ opacity: 0, y: 16 }}
+                    initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -16 }}
-                    transition={{ duration: 0.35 }}
-                    className="space-y-6 sm:space-y-7"
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-5 sm:space-y-6"
                   >
                     {/* Top Bar with Icon & Counter */}
-                    <div className="flex items-center justify-between border-b border-white/15 pb-5 gap-3 sm:gap-4">
-                      <div className="flex items-center gap-3.5 min-w-0">
-                        <div className="p-3 rounded-2xl bg-black/40 border border-white/20 backdrop-blur-md shadow-lg shrink-0">
-                          {ICON_MAP[activeCapability.iconName] || <Cpu className="w-6 h-6 text-cyan-400" />}
+                    <div className="flex items-center justify-between border-b border-white/15 pb-4 gap-3 sm:gap-4">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="p-2.5 rounded-2xl bg-black/50 border border-white/20 backdrop-blur-md shadow-lg shrink-0">
+                          {ICON_MAP[activeCapability.iconName] || <Cpu className="w-5 h-5 text-cyan-400" />}
                         </div>
                         <div className="min-w-0">
-                          <span className="text-[11px] font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold">
-                            DISCIPLINE {activeCapability.number} // 07
+                          <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-400 block font-bold">
+                            DISCIPLINE {activeCapability.number} // {totalDisciplines}
                           </span>
-                          <h4 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
+                          <h4 className="text-lg sm:text-xl font-display font-black text-white tracking-tight">
                             {activeCapability.title}
                           </h4>
                         </div>
@@ -433,27 +428,27 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                     </div>
 
                     {/* Tagline & Architectural Overview */}
-                    <div className="space-y-2">
-                      <p className="text-base sm:text-lg font-medium text-white leading-snug">
+                    <div className="space-y-1.5">
+                      <p className="text-sm sm:text-base font-medium text-white leading-snug">
                         {activeCapability.tagline}
                       </p>
-                      <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed line-clamp-3">
+                      <p className="text-xs text-slate-300 font-light leading-relaxed line-clamp-3">
                         {activeCapability.description}
                       </p>
                     </div>
 
                     {/* Specialized Scopes & Architecture Checklist */}
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-mono-tech uppercase tracking-widest text-cyan-300/90 block font-semibold">
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-300/90 block font-semibold">
                         SPECIALIZED SCOPES &amp; ARCHITECTURES
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {activeCapability.subServices.slice(0, 4).map((sub, sIdx) => (
                           <div
                             key={sIdx}
-                            className="flex items-start gap-2.5 text-xs text-slate-200 bg-black/35 p-2.5 rounded-xl border border-white/10 backdrop-blur-md"
+                            className="flex items-start gap-2 text-xs text-slate-200 bg-black/40 p-2.5 rounded-xl border border-white/10 backdrop-blur-md"
                           >
-                            <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
                             <span className="leading-tight font-medium">{sub}</span>
                           </div>
                         ))}
@@ -461,15 +456,15 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                     </div>
 
                     {/* Frameworks & Technologies Pills */}
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-mono-tech uppercase tracking-widest text-cyan-300/90 block font-semibold">
+                    <div className="space-y-2">
+                      <span className="text-[10px] font-mono-tech uppercase tracking-widest text-cyan-300/90 block font-semibold">
                         FRAMEWORKS, RUNTIMES &amp; CLOUDS
                       </span>
                       <div className="flex flex-wrap gap-1.5">
                         {activeCapability.technologies.map((tech, tIdx) => (
                           <span
                             key={tIdx}
-                            className="px-2.5 py-1 rounded-lg bg-black/35 border border-white/10 text-xs font-mono-tech text-slate-200 backdrop-blur-md whitespace-nowrap"
+                            className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 text-[11px] font-mono-tech text-slate-200 backdrop-blur-md whitespace-nowrap"
                           >
                             {tech}
                           </span>
@@ -478,20 +473,20 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                     </div>
 
                     {/* Bottom Action Footer */}
-                    <div className="pt-5 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                    <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                       <div className="space-y-0.5">
                         <span className="text-[11px] font-mono-tech text-emerald-400 flex items-center gap-1.5 uppercase font-bold">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                           Senior Squad Delivery
                         </span>
-                        <span className="text-[11px] text-slate-400 font-light block">
+                        <span className="text-[10px] text-slate-400 font-light block">
                           Direct architect Slack &amp; MS Teams integration
                         </span>
                       </div>
 
                       <button
                         onClick={() => onStartProjectWithCapability(activeCapability.title)}
-                        className="px-6 py-3 rounded-full bg-white hover:bg-slate-200 text-slate-950 font-display font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl cursor-pointer active:scale-95"
+                        className="px-5 py-2.5 rounded-full bg-white hover:bg-slate-200 text-slate-950 font-display font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl cursor-pointer active:scale-95"
                       >
                         <span>Engage This Discipline</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -501,8 +496,8 @@ export const CapabilitiesSection: React.FC<CapabilitiesProps> = ({
                 </AnimatePresence>
 
                 {/* Bottom Timeline Quick Jump Dots */}
-                <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-xs font-mono-tech text-slate-500">
-                  <span className="text-[11px] uppercase tracking-wider">0{activeIndex + 1} // 07 Disciplines</span>
+                <div className="mt-5 pt-3.5 border-t border-white/5 flex items-center justify-between text-xs font-mono-tech text-slate-500">
+                  <span className="text-[10px] uppercase tracking-wider">0{activeIndex + 1} // {totalDisciplines} Disciplines</span>
                   <div className="flex items-center gap-1.5">
                     {CAPABILITIES.map((c, dotIdx) => (
                       <button

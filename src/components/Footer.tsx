@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   ArrowUp, 
   ArrowUpRight, 
   Phone, 
   Mail, 
   MapPin, 
-  Clock, 
   Globe, 
   ShieldCheck, 
   Sparkles, 
@@ -54,35 +53,9 @@ const SHOWCASE_GALLERY = [
 ];
 
 export const Footer: React.FC = () => {
-  const [times, setTimes] = useState<{ [key: string]: string }>({});
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [quickEmail, setQuickEmail] = useState('');
   const [isSent, setIsSent] = useState(false);
-
-  useEffect(() => {
-    const updateTimes = () => {
-      const newTimes: { [key: string]: string } = {};
-      COMPANY_FACTS.deliveryHubs.forEach((hub) => {
-        try {
-          const formatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: hub.timeZone,
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-          });
-          newTimes[hub.city] = formatter.format(new Date());
-        } catch {
-          newTimes[hub.city] = '--:--:--';
-        }
-      });
-      setTimes(newTimes);
-    };
-
-    updateTimes();
-    const interval = setInterval(updateTimes, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -144,11 +117,11 @@ export const Footer: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
           <a
             href="#work"
-            className="pointer-events-auto inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#080d1a]/95 backdrop-blur-xl border border-cyan-400/40 text-white shadow-[0_10px_35px_rgba(0,0,0,0.85),0_0_25px_rgba(6,182,212,0.3)] hover:border-cyan-400 hover:bg-[#0c1428] hover:scale-105 transition-all duration-300 text-xs font-mono-tech tracking-wider uppercase group"
+            className="pointer-events-auto inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-[#080d1a]/95 backdrop-blur-xl border border-cyan-400/40 text-white shadow-[0_10px_35px_rgba(0,0,0,0.85),0_0_25px_rgba(6,182,212,0.3)] hover:border-cyan-400 hover:bg-[#0c1428] hover:scale-105 transition-all duration-300 text-[11px] sm:text-xs font-mono-tech tracking-wider uppercase group whitespace-nowrap"
           >
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform" />
+            <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-cyan-400 group-hover:rotate-12 transition-transform shrink-0" />
             <span>PureTech Project Showcase</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
           </a>
         </div>
       </div>
@@ -193,16 +166,18 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Quick Anchor Navigation Strip */}
-          <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-wrap items-center gap-y-3 gap-x-8 text-xs font-mono-tech uppercase tracking-wider text-slate-400">
+          <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-wrap items-center gap-y-3 gap-x-6 sm:gap-x-8 text-xs font-mono-tech uppercase tracking-wider text-slate-400">
             <a href="#hero" className="hover:text-[#f6891f] transition-colors">01 // Home</a>
-            <a href="#capabilities" className="hover:text-[#f6891f] transition-colors">02 // Capabilities</a>
-            <a href="#work" className="hover:text-[#f6891f] transition-colors">03 // Featured Work</a>
-            <a href="#pillars" className="hover:text-[#f6891f] transition-colors">04 // Process & Pillars</a>
-            <a href="#about" className="hover:text-[#f6891f] transition-colors">05 // About</a>
-            <a href="#team" className="hover:text-[#f6891f] transition-colors">06 // Leadership</a>
-            <a href="#testimonials" className="hover:text-[#f6891f] transition-colors">07 // Reviews</a>
-            <a href="#faq" className="hover:text-[#f6891f] transition-colors">08 // FAQs</a>
-            <a href="#contact" className="hover:text-[#f6891f] transition-colors">09 // Contact</a>
+            <a href="#capabilities" className="hover:text-[#f6891f] transition-colors">02 // Services</a>
+            <a href="#work" className="hover:text-[#f6891f] transition-colors">03 // Work</a>
+            <a href="#what-if" className="hover:text-[#f6891f] transition-colors">04 // R&amp;D Labs</a>
+            <a href="#pillars" className="hover:text-[#f6891f] transition-colors">05 // Process</a>
+            <a href="#about" className="hover:text-[#f6891f] transition-colors">06 // About</a>
+            <a href="#team" className="hover:text-[#f6891f] transition-colors">07 // Team</a>
+            <a href="#testimonials" className="hover:text-[#f6891f] transition-colors">08 // Reviews</a>
+            <a href="#estimator" className="hover:text-[#f6891f] transition-colors">09 // Estimator</a>
+            <a href="#faq" className="hover:text-[#f6891f] transition-colors">10 // FAQs</a>
+            <a href="#contact" className="hover:text-[#f6891f] transition-colors">11 // Contact</a>
           </div>
         </div>
 
@@ -268,26 +243,40 @@ export const Footer: React.FC = () => {
               )}
             </div>
 
-            {/* Live Studio Delivery Hubs / Clocks */}
-            <div className="space-y-2">
-              <div className="text-[11px] font-mono-tech uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                <Clock className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Distributed Studio Nodes</span>
+            {/* Distributed Studio Nodes */}
+            <div className="space-y-2.5">
+              <div className="text-[11px] font-mono-tech uppercase tracking-widest text-slate-400 flex items-center justify-between">
+                <span className="flex items-center gap-2 text-cyan-400">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>Distributed Studio Nodes</span>
+                </span>
+                <span className="text-[10px] text-emerald-400 font-mono-tech flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  All Pods Active
+                </span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {COMPANY_FACTS.deliveryHubs.map((hub, idx) => (
                   <div 
                     key={idx} 
-                    className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-cyan-400/30 transition-colors"
+                    className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-cyan-400/40 hover:bg-white/[0.06] transition-all space-y-1.5"
                   >
-                    <div className="text-[10px] font-mono-tech text-cyan-400 uppercase tracking-wider truncate">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-base leading-none">{hub.flag}</span>
+                        <span className="text-xs font-display font-bold text-white tracking-tight">
+                          {hub.country}
+                        </span>
+                      </div>
+                      <span className="text-[9px] font-mono-tech px-1.5 py-0.5 rounded bg-white/10 text-cyan-300 font-bold">
+                        {hub.code}
+                      </span>
+                    </div>
+                    <div className="text-[11px] font-mono-tech text-slate-300 truncate">
                       {hub.city}
                     </div>
-                    <div className="text-lg font-mono-tech font-bold text-white tracking-tight mt-0.5">
-                      {times[hub.city] || '00:00:00'}
-                    </div>
-                    <div className="text-[10px] text-slate-500 mt-1 truncate">
-                      {hub.label.split('·')[1]?.trim() || hub.label}
+                    <div className="text-[10px] text-slate-400 font-light truncate">
+                      {hub.label}
                     </div>
                   </div>
                 ))}
@@ -412,12 +401,12 @@ export const Footer: React.FC = () => {
                       {COMPANY_FACTS.headquarters}
                     </div>
                     <p className="text-xs text-slate-400 mt-1">
-                      Alpharetta Technology District · Atlanta Metropolitan Tech Corridor, GA, USA
+                      Dallas Design District · Dallas Metropolitan Area, TX, USA
                     </p>
                   </div>
                 </div>
                 <a
-                  href="https://maps.google.com/?q=14800+Hopewell+Rd,+Alpharetta,+GA+30004"
+                  href={`https://maps.google.com/?q=${encodeURIComponent(COMPANY_FACTS.headquarters)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shrink-0 w-11 h-11 rounded-full border border-white/15 flex items-center justify-center text-slate-300 group-hover:text-sky-400 group-hover:border-sky-400/50 transition-colors"

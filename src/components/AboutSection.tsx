@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ShieldCheck, MapPin, Lock, Cpu, Globe, Terminal, LayoutGrid, Award, CheckCircle2, ChevronRight, Users, Eye, Sliders, Scale } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { COMPANY_FACTS, MANIFESTO_PILLARS } from '../data/content';
-import { fadeInUp, fadeInScale, staggerContainer } from './MotionWrappers';
+import React, { useState, useRef } from 'react';
+import { ShieldCheck, MapPin, Lock, CheckCircle2, Users, Eye, Sliders, Scale } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
+import { MANIFESTO_PILLARS } from '../data/content';
+import { fadeInUp } from './MotionWrappers';
 
 const MANIFESTO_ICONS: Record<string, React.ReactNode> = {
   'top-talent': <Users className="w-5 h-5 text-cyan-400" />,
@@ -14,11 +14,35 @@ const MANIFESTO_ICONS: Record<string, React.ReactNode> = {
 export const AboutSection: React.FC = () => {
   const [activeManifestoId, setActiveManifestoId] = useState(MANIFESTO_PILLARS[0].id);
   const activeManifesto = MANIFESTO_PILLARS.find(m => m.id === activeManifestoId) || MANIFESTO_PILLARS[0];
+  const manifestoScrollerRef = useRef<HTMLDivElement>(null);
+
+  // Scrollytelling scroll observer for the Manifesto section
+  const { scrollYProgress } = useScroll({
+    target: manifestoScrollerRef,
+    offset: ['start start', 'end end']
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Map 0 -> 1 progress to 4 manifesto steps:
+    // 0.00 - 0.25 -> 0 (top-talent)
+    // 0.25 - 0.50 -> 1 (verification)
+    // 0.50 - 0.75 -> 2 (flexibility)
+    // 0.75 - 1.00 -> 3 (the-right-balance)
+    const count = MANIFESTO_PILLARS.length;
+    let idx = Math.min(count - 1, Math.floor(latest * count));
+    if (idx >= 0 && idx < count && MANIFESTO_PILLARS[idx].id !== activeManifestoId) {
+      setActiveManifestoId(MANIFESTO_PILLARS[idx].id);
+    }
+  });
+
+  const handlePillarClick = (id: string) => {
+    setActiveManifestoId(id);
+  };
 
   return (
-    <section id="about" className="pt-20 sm:pt-32 pb-32 sm:pb-44 lg:pb-52 relative">
+    <section id="about" className="pt-20 sm:pt-32 pb-0 relative">
       {/* TOP GRID: THE PURETECH PRINCIPLE · ALPHARETTA HQ SPOTLIGHT */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 mb-4 sm:mb-6 border-b border-white/[0.08]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 border-b border-white/[0.08] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <motion.div
             initial="hidden"
@@ -160,224 +184,178 @@ export const AboutSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 mt-16 sm:mt-24">
+      {/* ======================================================== */}
+      {/* OPERATING METHODOLOGY // MANIFESTO (Sticky Scrollytelling Stage) */}
+      {/* ======================================================== */}
+      <div 
+        ref={manifestoScrollerRef} 
+        className="relative min-h-[280vh] sm:min-h-[320vh] bg-transparent z-20"
+      >
+        {/* Pinned full-bleed stage */}
+        <div className="sticky top-0 left-0 w-full min-h-screen flex flex-col justify-center py-6 sm:py-10 lg:py-16 z-20 overflow-hidden">
+          {/* Subtle Ambient Background Lighting */}
+          <div className="absolute top-1/4 left-10 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-[180px] pointer-events-none -z-10" />
+          <div className="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-[180px] pointer-events-none -z-10" />
 
-        {/* ======================================================== */}
-        {/* DEVELOPMENT PRACTICES MANIFESTO (Fantasy.co Inner Page Style) */}
-        {/* ======================================================== */}
-        <div className="space-y-12">
-          {/* Header Block */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-white/10">
-            <div className="max-w-3xl space-y-3">
-              <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.25em] text-cyan-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                <span>OPERATING METHODOLOGY // MANIFESTO</span>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            {/* Header Block */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3 sm:gap-4 pb-4 sm:pb-5 border-b border-white/10 mb-5 sm:mb-8">
+              <div className="max-w-3xl space-y-1.5 sm:space-y-2">
+                <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-[0.25em] text-cyan-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  <span>OPERATING METHODOLOGY // MANIFESTO</span>
+                </div>
+                <h3 className="text-xl sm:text-3xl lg:text-5xl font-display font-black text-white tracking-tight leading-[1.08]">
+                  How we engineer software without compromise.
+                </h3>
               </div>
-              <h3 className="text-3xl sm:text-5xl lg:text-6xl font-display font-black text-white tracking-tight leading-[1.08]">
-                How we engineer software without compromise.
-              </h3>
+              <p className="max-w-md text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                Our systematic approach eliminates guesswork, fortifies code quality, and ensures seamless execution from kickoff to multi-region production.
+              </p>
             </div>
-            <p className="max-w-md text-sm sm:text-base text-slate-300 font-light leading-relaxed">
-              Our systematic approach eliminates guesswork, fortifies code quality, and ensures seamless execution from kickoff to multi-region production.
-            </p>
-          </div>
 
-          {/* Interactive Fantasy Inner Page Split Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-            {/* Left Column: Interactive Tenet Navigation */}
-            <div className="lg:col-span-5 flex flex-col justify-between space-y-3">
-              {MANIFESTO_PILLARS.map((manifesto) => {
-                const isSelected = activeManifestoId === manifesto.id;
-                return (
-                  <div
-                    key={manifesto.id}
-                    onClick={() => setActiveManifestoId(manifesto.id)}
-                    className={`p-5 sm:p-6 rounded-2xl border transition-all duration-300 cursor-pointer relative overflow-hidden group ${
-                      isSelected
-                        ? 'bg-zinc-950/80 border-cyan-500/40 shadow-[0_10px_35px_rgba(6,182,212,0.12)] backdrop-blur-sm'
-                        : 'bg-zinc-950/40 border-white/10 hover:border-white/20 hover:bg-zinc-950/60 backdrop-blur-sm'
-                    }`}
-                  >
-                    {/* Active Accent Left Border Bar */}
-                    {isSelected && (
-                      <motion.div
-                        layoutId="activeManifestoIndicator"
-                        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-indigo-400"
-                      />
-                    )}
+            {/* Interactive Inner Page Split Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-10 items-stretch">
+              {/* Left Column: Interactive Tenet Navigation */}
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-2 sm:space-y-2.5">
+                {MANIFESTO_PILLARS.map((manifesto) => {
+                  const isSelected = activeManifestoId === manifesto.id;
+                  return (
+                    <div
+                      key={manifesto.id}
+                      id={`manifesto-item-${manifesto.id}`}
+                      onClick={() => handlePillarClick(manifesto.id)}
+                      className={`p-3.5 sm:p-4.5 rounded-xl sm:rounded-2xl border transition-all duration-300 cursor-pointer relative overflow-hidden group ${
+                        isSelected
+                          ? 'bg-zinc-950/80 border-cyan-500/60 shadow-[0_10px_35px_rgba(6,182,212,0.2)] backdrop-blur-lg'
+                          : 'bg-zinc-950/35 border-white/10 hover:border-white/25 hover:bg-zinc-950/50 backdrop-blur-md'
+                      }`}
+                    >
+                      {/* Active Accent Left Border Bar */}
+                      {isSelected && (
+                        <motion.div
+                          layoutId="activeManifestoIndicator"
+                          className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-indigo-400"
+                        />
+                      )}
 
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-center gap-4">
-                        <span className={`font-mono-tech text-base font-bold transition-colors ${
-                          isSelected ? 'text-cyan-400' : 'text-slate-400 group-hover:text-slate-300'
-                        }`}>
-                          {manifesto.number}
-                        </span>
-
-                        <div>
-                          <h4 className={`text-lg sm:text-xl font-display font-bold transition-colors ${
-                            isSelected ? 'text-white' : 'text-slate-300 group-hover:text-white'
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <span className={`font-mono-tech text-xs sm:text-base font-bold transition-colors ${
+                            isSelected ? 'text-cyan-400' : 'text-slate-400 group-hover:text-slate-300'
                           }`}>
-                            {manifesto.title}
-                          </h4>
-                          <span className="text-xs font-mono-tech text-slate-400 line-clamp-1">
-                            {manifesto.subtitle}
+                            {manifesto.number}
                           </span>
+
+                          <div>
+                            <h4 className={`text-sm sm:text-base lg:text-lg font-display font-bold transition-colors ${
+                              isSelected ? 'text-white' : 'text-slate-300 group-hover:text-white'
+                            }`}>
+                              {manifesto.title}
+                            </h4>
+                            <span className="text-[10px] sm:text-xs font-mono-tech text-slate-400 line-clamp-1">
+                              {manifesto.subtitle}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className={`p-1.5 sm:p-2 rounded-xl border transition-all shrink-0 ${
+                          isSelected 
+                            ? 'bg-cyan-500/10 border-cyan-400/30 text-cyan-300' 
+                            : 'bg-white/[0.04] border-white/10 text-slate-400 group-hover:text-white'
+                        }`}>
+                          {MANIFESTO_ICONS[manifesto.id]}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Bottom Assurance Note */}
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center gap-2.5 text-[11px] sm:text-xs font-mono-tech text-slate-400">
+                  <CheckCircle2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-emerald-400 shrink-0" />
+                  <span>Audited against ISO &amp; Zero-Trust Architecture benchmarks</span>
+                </div>
+              </div>
+
+              {/* Right Column: Deep Editorial Tenet Showcase Canvas */}
+              <div className="lg:col-span-7 flex flex-col justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeManifesto.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="rounded-2xl sm:rounded-[28px] p-5 sm:p-7 lg:p-10 bg-zinc-950/75 border border-white/20 backdrop-blur-xl relative overflow-hidden flex flex-col justify-between shadow-2xl min-h-[320px] sm:min-h-[400px]"
+                  >
+                    {/* Decorative Background Large Watermark Number */}
+                    <div className="absolute right-4 -bottom-6 text-[120px] sm:text-[220px] font-mono-tech font-black text-white/[0.03] select-none pointer-events-none leading-none">
+                      {activeManifesto.number}
+                    </div>
+
+                    {/* Ambient Glow */}
+                    <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none" />
+
+                    {/* Card Header */}
+                    <div className="relative z-10 space-y-3.5">
+                      <div className="flex items-center justify-between">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-xs font-mono-tech text-cyan-300 font-bold uppercase tracking-widest">
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                          <span>TENET {activeManifesto.number} // OPERATIONAL STANDARD</span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-white/[0.05] border border-white/10">
+                          {MANIFESTO_ICONS[activeManifesto.id]}
                         </div>
                       </div>
 
-                      <div className={`p-2 rounded-xl border transition-all shrink-0 ${
-                        isSelected 
-                          ? 'bg-cyan-500/10 border-cyan-400/30 text-cyan-300' 
-                          : 'bg-white/[0.04] border-white/10 text-slate-400 group-hover:text-white'
-                      }`}>
-                        {MANIFESTO_ICONS[manifesto.id]}
+                      <div>
+                        <h4 className="text-xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+                          {activeManifesto.title}
+                        </h4>
+                        <p className="text-xs sm:text-sm font-mono-tech text-cyan-400 mt-0.5">
+                          {activeManifesto.subtitle}
+                        </p>
                       </div>
-                    </div>
-                  </div>
-                );
-              })}
 
-              {/* Bottom Assurance Note */}
-              <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center gap-3 text-xs font-mono-tech text-slate-400">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Audited against ISO & Zero-Trust Architecture benchmarks</span>
-              </div>
-            </div>
-
-            {/* Right Column: Deep Editorial Tenet Showcase Canvas */}
-            <div className="lg:col-span-7">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeManifesto.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="h-full rounded-[32px] p-8 sm:p-10 lg:p-12 bg-[#0c0e14]/90 border border-white/15 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between shadow-2xl"
-                >
-                  {/* Decorative Background Large Watermark Number */}
-                  <div className="absolute right-4 -bottom-6 text-[180px] sm:text-[240px] font-mono-tech font-black text-white/[0.03] select-none pointer-events-none leading-none">
-                    {activeManifesto.number}
-                  </div>
-
-                  {/* Ambient Glow */}
-                  <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none" />
-
-                  {/* Card Header */}
-                  <div className="relative z-10 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-xs font-mono-tech text-cyan-300 font-bold uppercase tracking-widest">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                        <span>TENET {activeManifesto.number} // OPERATIONAL STANDARD</span>
-                      </div>
-                      <div className="p-2.5 rounded-xl bg-white/[0.05] border border-white/10">
-                        {MANIFESTO_ICONS[activeManifesto.id]}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight">
-                        {activeManifesto.title}
-                      </h4>
-                      <p className="text-sm sm:text-base font-mono-tech text-cyan-400 mt-1">
-                        {activeManifesto.subtitle}
+                      <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed pt-1">
+                        {activeManifesto.description}
                       </p>
                     </div>
 
-                    <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed pt-2">
-                      {activeManifesto.description}
-                    </p>
-                  </div>
+                    {/* Key Practices & Delivery Seal */}
+                    <div className="relative z-10 space-y-4 pt-5 mt-5 border-t border-white/10">
+                      <div className="space-y-2">
+                        <span className="text-[10px] sm:text-[11px] font-mono-tech text-slate-400 uppercase tracking-widest block font-bold">
+                          SYSTEMATIC PRACTICES &amp; CONTROLS
+                        </span>
+                        <div className="flex flex-wrap gap-2">
+                          {activeManifesto.keyPractices.map((practice, i) => (
+                            <div
+                              key={i}
+                              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/[0.04] border border-white/10 hover:border-cyan-400/40 text-[11px] sm:text-xs font-mono-tech text-slate-200 transition-colors"
+                            >
+                              <CheckCircle2 className="w-3 h-3 text-cyan-400 shrink-0" />
+                              <span>{practice}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
-                  {/* Key Practices & Delivery Seal */}
-                  <div className="relative z-10 space-y-6 pt-8 mt-8 border-t border-white/10">
-                    <div className="space-y-3">
-                      <span className="text-[11px] font-mono-tech text-slate-400 uppercase tracking-widest block font-bold">
-                        SYSTEMATIC PRACTICES & CONTROLS
-                      </span>
-                      <div className="flex flex-wrap gap-2.5">
-                        {activeManifesto.keyPractices.map((practice, i) => (
-                          <div
-                            key={i}
-                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.04] border border-white/10 hover:border-cyan-400/40 text-xs font-mono-tech text-slate-200 transition-colors"
-                          >
-                            <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                            <span>{practice}</span>
-                          </div>
-                        ))}
+                      <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] sm:text-xs font-mono-tech text-slate-400">
+                        <span>PureTech Code Health Standard</span>
+                        <span className="text-cyan-400 font-bold tracking-wider">
+                          100% INDEPENDENT VALIDATION
+                        </span>
                       </div>
                     </div>
-
-                    <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs font-mono-tech text-slate-400">
-                      <span>PureTech Code Health Standard</span>
-                      <span className="text-cyan-400 font-bold tracking-wider">
-                        100% INDEPENDENT VALIDATION
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* Global Delivery Hubs & Clocks */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { staggerChildren: 0.1 }
-            }
-          }}
-          className="p-7 sm:p-10 lg:p-12 rounded-[32px] bg-[#0c0e17]/95 border border-white/15 backdrop-blur-xl shadow-[0_25px_80px_rgba(0,0,0,0.8)]"
-        >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-white/10 gap-4">
-            <div>
-              <span className="text-xs font-mono-tech uppercase tracking-widest text-cyan-400 block mb-1">
-                ENGINEERING NODES
-              </span>
-              <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
-                Follow-the-Sun Delivery Velocity
-              </h3>
-            </div>
-            <div className="text-xs text-slate-400 font-mono-tech flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>ALL PODS ACTIVE & CONNECTED</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 pb-2">
-            {COMPANY_FACTS.deliveryHubs.map((hub, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeInScale}
-                className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-cyan-400/40 hover:bg-white/[0.05] transition-all space-y-1.5"
-              >
-                <div className="text-xs font-mono-tech text-slate-400 uppercase tracking-wider">
-                  {hub.label}
-                </div>
-                <div className="text-lg sm:text-xl font-display font-bold text-white">
-                  {hub.city}
-                </div>
-                <div className="text-xs font-mono-tech text-cyan-400 font-semibold pt-1 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                  Active Client Sprints
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
-
-      {/* Seamless ambient fade into Team Section */}
-      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#06080f] to-transparent pointer-events-none" />
     </section>
   );
 };
-
