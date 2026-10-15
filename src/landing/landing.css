@@ -1,4 +1,16 @@
 .lp{--lp-accent:#f6891f;background:#08090d;color:#f3f1eb;min-height:100vh;font-family:var(--font-body);overflow:clip}
+/* The shared React header uses Tailwind utility names, while the Next build does not
+   run Tailwind. Keep it visually consistent on landing routes with a small baseline. */
+header.fixed{height:90px;padding:0 40px;display:block;background:#08090de8;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;box-sizing:border-box}
+header.fixed>div{max-width:1280px;height:100%;margin:0 auto;padding:0;display:flex;align-items:center}
+header.fixed>div>div{width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+header.fixed img{width:170px;height:36px;object-fit:contain}
+header.fixed nav{display:flex;align-items:center;gap:26px;font-size:12px;color:#b9bcc5}
+header.fixed nav button,header.fixed button{font-family:inherit;border:0;background:transparent;color:#b9bcc5}
+header.fixed nav button:hover{color:#fff}
+header.fixed>div>div>div:last-child{display:flex;align-items:center;gap:12px}
+header.fixed #header-cta-btn{display:flex;align-items:center;gap:8px;background:#f6891f;color:#08090d;padding:12px 20px;border-radius:30px;font-size:12px;font-weight:700}
+header.fixed #mobile-nav-toggle-btn{display:none}
 .lp *{box-sizing:border-box}.lp a{text-decoration:none}.lp button{font:inherit;cursor:pointer}.lp :is(a,button,summary):focus-visible{outline:2px solid var(--lp-accent);outline-offset:5px}.lp section[id]{scroll-margin-top:110px}.lp-container{width:min(1280px,calc(100% - 80px));margin-inline:auto}.lp h1,.lp h2,.lp h3{font-family:var(--font-display);font-weight:500;letter-spacing:-.045em}.lp h2{font-size:clamp(36px,4.2vw,60px);line-height:1.08}.lp h2>span{color:#858995}.lp-eyebrow{font-family:var(--font-mono);font-size:10px!important;letter-spacing:.17em;text-transform:uppercase;line-height:1.8!important;font-weight:500;color:var(--lp-accent)}
 .lp-skip{position:fixed;z-index:100;top:12px;left:15px;padding:12px;background:#fff;color:#08090d;transform:translateY(-200%)}.lp-skip:focus{transform:translateY(0)}
 .lp-header{height:90px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:sticky;top:0;z-index:50;background:#08090de8;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}.lp-header img{width:170px;height:auto}.lp-desktop-nav{display:flex;gap:30px;font-size:12px;color:#b9bcc5}.lp-desktop-nav a:hover{color:var(--lp-accent)}.lp-header-actions{display:flex;align-items:center;gap:22px}.lp-menu-wrap{position:relative}.lp-menu-toggle{background:transparent;border:0;color:#e9e7e2;display:flex;align-items:center;gap:7px;font-size:12px!important}.lp-header-cta{display:flex;gap:16px;align-items:center;background:#f6891f;color:#08090d;padding:12px 20px;border-radius:30px;font-size:12px;font-weight:700}.lp-menu{position:absolute;top:40px;right:0;width:310px;max-width:calc(100vw - 32px);max-height:75vh;overflow:auto;padding:20px;background:#14161f;border:1px solid #ffffff26;border-radius:14px;box-shadow:0 20px 60px #0008}.lp-menu>a{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #ffffff0d;font-size:13px;color:#c4c8d3}.lp-menu>a:hover,.lp-menu>a[aria-current]{color:var(--lp-accent)}
