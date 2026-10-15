@@ -1,4 +1,6 @@
 .lp{--lp-accent:#f6891f;background:#08090d;color:#f3f1eb;min-height:100vh;font-family:var(--font-body);overflow:clip}
+/* Restore the few positioning utilities used by the shared homepage shell. */
+.fixed{position:fixed}.fixed.inset-0{inset:0;width:100%;height:100%}
 /* The shared React header uses Tailwind utility names, while the Next build does not
    run Tailwind. Keep it visually consistent on landing routes with a small baseline. */
 header.fixed{height:90px;padding:0 40px;display:block;background:#08090de8;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;box-sizing:border-box}
