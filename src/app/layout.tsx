@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import '../index.css';
+import '../generated-tailwind.css';
 import '../landing/landing.css';
 import '../landing/landing-sections.css';
 
